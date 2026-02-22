@@ -265,7 +265,7 @@ export default function ServicesContent() {
                                             </p>
 
                                             {/* Hover Image Reveal */}
-                                            <div className="hidden lg:block absolute right-[20%] top-1/2 -translate-y-1/2 w-[300px] h-[200px] rounded-xl overflow-hidden opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 pointer-events-none shadow-2xl">
+                                            <div className="hidden lg:block absolute left-[35%] top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[200px] rounded-xl overflow-hidden opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 pointer-events-none shadow-2xl">
                                                 <Image src={service.image} alt={service.title} fill className="object-cover" />
                                             </div>
 
