@@ -23,10 +23,10 @@ export default function StudioContent() {
     const giantTextY = useTransform(smoothProgress, [0, 1], [0, 600])
 
     const teamMembers = [
-        { id: 1, name: 'Zaidh', role: 'Founder, Director & Head of Marketing', image: '/Zamir Founder.webp', position: 'object-top' },
-        { id: 2, name: 'Aasir', role: 'Co-Founder & Full-stack Developer', image: '/cofounder_new.webp', position: 'object-top' },
-        { id: 3, name: 'Hasni', role: 'Senior Full-Stack Developer & UI/UX Designer', image: '/HASNI.webp', position: 'object-top' },
-        { id: 4, name: 'Gughan', role: 'Software Engineer & UI/UX Designer', image: '/Kuhan.webp', position: 'object-[center_20%]' },
+        { id: 1, name: 'Zaidh Zammer', role: 'Founder, Director & Head of Marketing', image: '/Zamir Founder.webp', position: 'object-top' },
+        { id: 2, name: 'Wahab Aasir', role: 'Co-Founder & Full-stack Developer', image: '/cofounder_new.webp', position: 'object-top' },
+        { id: 3, name: 'Hasni Ahmed', role: 'Senior Full-Stack Developer & UI/UX Designer', image: '/HASNI.webp', position: 'object-top' },
+        { id: 4, name: 'RaajGughan', role: 'Software Engineer & UI/UX Designer', image: '/Kuhan.webp', position: 'object-[center_20%]' },
     ]
 
     const values = [

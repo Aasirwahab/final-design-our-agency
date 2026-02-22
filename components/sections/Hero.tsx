@@ -16,9 +16,10 @@ function AnimatedHeading() {
     ]
 
     const wordVars = {
-        hidden: { y: '100%' },
+        hidden: { y: '100%', opacity: 0 },
         show: (i: number) => ({
             y: '0%',
+            opacity: 1,
             transition: {
                 duration: 0.6,
                 delay: 0.1 + i * 0.08,
@@ -34,34 +35,32 @@ function AnimatedHeading() {
             {/* Line 1 */}
             <span className="block">
                 {line1Words.map((word, i) => (
-                    <span key={i} className="inline-block overflow-hidden pb-[0.2em] -mb-[0.2em] mr-[0.28em]">
-                        <motion.span
-                            className="inline-block"
-                            variants={wordVars}
-                            initial="hidden"
-                            animate="show"
-                            custom={i}
-                        >
-                            {word}
-                        </motion.span>
-                    </span>
+                    <motion.span
+                        key={i}
+                        className="inline-block mr-[0.28em]"
+                        variants={wordVars}
+                        initial="hidden"
+                        animate="show"
+                        custom={i}
+                    >
+                        {word}
+                    </motion.span>
                 ))}
             </span>
 
             {/* Line 2 — accent words */}
-            <span className="block">
+            <span className="block mt-2">
                 {line2Words.map((w, i) => (
-                    <span key={i} className="inline-block overflow-hidden pb-[0.2em] -mb-[0.2em] mr-[0.28em]">
-                        <motion.span
-                            className={`inline-block ${w.accent ? 'text-accent' : ''}`}
-                            variants={wordVars}
-                            initial="hidden"
-                            animate="show"
-                            custom={line1Words.length + i}
-                        >
-                            {w.text.trim()}
-                        </motion.span>
-                    </span>
+                    <motion.span
+                        key={i}
+                        className={`inline-block mr-[0.28em] ${w.accent ? 'text-accent' : ''}`}
+                        variants={wordVars}
+                        initial="hidden"
+                        animate="show"
+                        custom={line1Words.length + i}
+                    >
+                        {w.text.trim()}
+                    </motion.span>
                 ))}
             </span>
         </h1>

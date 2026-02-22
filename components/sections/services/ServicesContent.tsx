@@ -249,7 +249,7 @@ export default function ServicesContent() {
                                     <div className="px-6 md:px-12 py-10 md:py-16 flex flex-col lg:flex-row lg:items-center justify-between gap-8 md:gap-16 relative z-10 w-full overflow-hidden">
 
                                         {/* Number and Title */}
-                                        <div className="flex items-start gap-8 md:gap-12 w-full lg:w-1/2 shrink-0">
+                                        <div className="flex items-start gap-8 md:gap-12 w-full lg:w-[40%] shrink-0">
                                             <span className={`text-text-secondary ${inter.variable} font-sans group-hover:text-accent transition-colors duration-500`}>
                                                 {service.id}
                                             </span>
@@ -259,13 +259,13 @@ export default function ServicesContent() {
                                         </div>
 
                                         {/* Description and Image Peek */}
-                                        <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full lg:w-1/2 ml-14 md:ml-0 gap-8">
+                                        <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full lg:w-[45%] ml-14 md:ml-0 gap-8">
                                             <p className={`text-lg text-text-secondary ${inter.variable} font-sans group-hover:text-text-primary transition-colors duration-500 max-w-sm`}>
                                                 {service.outcome}
                                             </p>
 
                                             {/* Hover Image Reveal */}
-                                            <div className="hidden lg:block absolute left-[35%] top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[200px] rounded-xl overflow-hidden opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 pointer-events-none shadow-2xl">
+                                            <div className="hidden lg:block absolute left-[45%] top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[200px] rounded-xl overflow-hidden opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 pointer-events-none shadow-2xl">
                                                 <Image src={service.image} alt={service.title} fill className="object-cover" />
                                             </div>
 

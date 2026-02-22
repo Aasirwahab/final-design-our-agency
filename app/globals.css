@@ -15,8 +15,8 @@
   --color-border: #E2E8F0;
   --color-border-light: #CBD5E1;
 
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-display);
+  --font-family-sans: var(--font-inter, ui-sans-serif, system-ui, sans-serif);
+  --font-family-display: var(--font-display, ui-serif, Georgia, serif);
 }
 
 @layer base {
@@ -28,12 +28,18 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }

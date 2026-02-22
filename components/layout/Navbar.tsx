@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Navbar() {
@@ -51,8 +52,15 @@ export default function Navbar() {
                     </nav>
 
                     {/* Center — Logo (absolutely centered) */}
-                    <Link href="/" className="absolute left-1/2 -translate-x-1/2 font-display text-3xl tracking-[0.15em] text-text-primary z-50">
-                        WEBVOXEL
+                    <Link href="/" className="absolute left-1/2 -translate-x-1/2 z-50">
+                        <Image
+                            src="/webvoxel-logo.png"
+                            alt="Webvoxel Logo"
+                            width={220}
+                            height={55}
+                            className="object-contain"
+                            priority
+                        />
                     </Link>
 
                     {/* Right — Divider + CTA */}
