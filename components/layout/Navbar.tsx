@@ -31,11 +31,11 @@ export default function Navbar() {
         <>
             <header
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-                    ? 'bg-white/90 backdrop-blur-xl border-b border-border shadow-sm'
-                    : 'bg-transparent'
+                    ? 'bg-white/70 backdrop-blur-2xl border-b border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)] py-2 text-text-primary'
+                    : 'bg-transparent border-b border-transparent py-4 text-text-primary'
                     }`}
             >
-                <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 h-20 flex items-center justify-between relative">
+                <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 h-16 flex items-center justify-between relative">
 
                     {/* Left — Nav links */}
                     <nav className="hidden md:flex items-center gap-8 flex-1">
@@ -54,11 +54,11 @@ export default function Navbar() {
                     {/* Center — Logo (absolutely centered) */}
                     <Link href="/" className="absolute left-1/2 -translate-x-1/2 z-50">
                         <Image
-                            src="/webvoxel-logo.png"
+                            src="/webvoxel-logoblack.png"
                             alt="Webvoxel Logo"
                             width={220}
                             height={55}
-                            className="object-contain"
+                            className="object-contain transition-all duration-500 hover:opacity-80"
                             priority
                         />
                     </Link>

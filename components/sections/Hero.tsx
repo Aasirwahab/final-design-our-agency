@@ -134,7 +134,7 @@ export default function Hero() {
                 {/* Left — Content */}
                 <div className="lg:col-span-7 flex flex-col justify-center">
                     <motion.p
-                        className={`text-sm tracking-widest uppercase text-text-muted mb-8 ${inter.variable} font-sans`}
+                        className={`text-sm tracking-widest uppercase text-text-muted mb-4 mt-16 lg:mt-6 ${inter.variable} font-sans`}
                         variants={itemVars}
                         initial="hidden"
                         animate="show"
@@ -146,7 +146,7 @@ export default function Hero() {
                     <AnimatedHeading />
 
                     <motion.p
-                        className={`text-lg md:text-xl text-text-secondary max-w-xl leading-relaxed mb-10 md:mb-14 ${inter.variable} font-sans`}
+                        className={`text-lg md:text-xl text-text-secondary max-w-xl leading-relaxed mb-4 md:mb-6 ${inter.variable} font-sans`}
                         variants={itemVars}
                         initial="hidden"
                         animate="show"
