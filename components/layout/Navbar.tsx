@@ -38,7 +38,7 @@ export default function Navbar() {
                 <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 h-16 flex items-center justify-between relative">
 
                     {/* Left — Nav links */}
-                    <nav className="hidden md:flex items-center gap-8 flex-1">
+                    <nav className="hidden lg:flex items-center gap-8 flex-1">
                         {[...leftLinks, ...rightLinks].map((link) => (
                             <Link
                                 key={link.name}
@@ -64,7 +64,7 @@ export default function Navbar() {
                     </Link>
 
                     {/* Right — Divider + CTA */}
-                    <div className="hidden md:flex items-center gap-6 flex-1 justify-end">
+                    <div className="hidden lg:flex items-center gap-6 flex-1 justify-end">
                         <Link
                             href="/contact"
                             className="bg-accent text-white px-6 py-2.5 rounded-full font-medium text-sm tracking-wide hover:bg-accent-hover hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
@@ -75,7 +75,7 @@ export default function Navbar() {
 
                     {/* Mobile hamburger */}
                     <button
-                        className="md:hidden z-50 p-2 -mr-2 text-text-primary"
+                        className="lg:hidden z-50 p-2 -mr-2 text-text-primary"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         aria-label="Toggle menu"
                     >
