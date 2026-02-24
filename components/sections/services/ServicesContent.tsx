@@ -244,49 +244,35 @@ export default function ServicesContent() {
 
                     <div className="flex flex-col w-full border-t border-border">
                         {services.map((service, idx) => (
-                            <Link href={`/services/${service.slug}`} key={idx}>
-                                <motion.div whileTap={{ scale: 0.98 }} className="group border-b border-border cursor-pointer relative transition-colors duration-500 hover:bg-accent/5">
-                                    <div className="px-6 md:px-12 py-10 md:py-16 flex flex-col lg:flex-row lg:items-center justify-between gap-8 md:gap-16 relative z-10 w-full overflow-hidden">
+                            <motion.div key={idx} className="group border-b border-border relative transition-colors duration-500 hover:bg-accent/5">
+                                <div className="px-6 md:px-12 py-10 md:py-16 flex flex-col lg:flex-row lg:items-center justify-between gap-8 md:gap-16 relative z-10 w-full overflow-hidden">
 
-                                        {/* Number and Title */}
-                                        <div className="flex items-start gap-8 md:gap-12 w-full lg:w-[40%] shrink-0">
-                                            <span className={`text-text-secondary ${inter.variable} font-sans group-hover:text-accent transition-colors duration-500`}>
-                                                {service.id}
-                                            </span>
-                                            <h3 className="font-display text-3xl md:text-4xl lg:text-5xl group-hover:translate-x-4 transition-transform duration-500 ease-out">
-                                                {service.title}
-                                            </h3>
-                                        </div>
-
-                                        {/* Description and Image Peek */}
-                                        <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full lg:w-[45%] ml-14 md:ml-0 gap-8">
-                                            <p className={`text-lg text-text-secondary ${inter.variable} font-sans group-hover:text-text-primary transition-colors duration-500 max-w-sm`}>
-                                                {service.outcome}
-                                            </p>
-
-                                            {/* Hover Image Reveal */}
-                                            <div className="hidden lg:block absolute left-[45%] top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[200px] rounded-xl overflow-hidden opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 pointer-events-none shadow-2xl">
-                                                <Image src={service.image} alt={service.title} fill className="object-cover" />
-                                            </div>
-
-                                            <div className="flex flex-col items-start md:items-end gap-4 shrink-0 transition-transform duration-500 group-hover:-translate-x-2">
-                                                {/* Arrow Icon */}
-                                                <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center group-hover:bg-accent group-hover:border-accent group-hover:text-bg-primary transition-all duration-500 group-hover:rotate-[-45deg]">
-                                                    <ArrowRight className="w-5 h-5" />
-                                                </div>
-
-                                                {/* Direct Proof Link (Hover Reveal) */}
-                                                <span className={`text-sm tracking-widest uppercase font-medium text-accent opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100 ${inter.variable} font-sans`}>
-                                                    View Work &rarr;
-                                                </span>
-                                            </div>
-                                        </div>
+                                    {/* Number and Title */}
+                                    <div className="flex items-start gap-8 md:gap-12 w-full lg:w-[40%] shrink-0">
+                                        <span className={`text-text-secondary ${inter.variable} font-sans group-hover:text-accent transition-colors duration-500`}>
+                                            {service.id}
+                                        </span>
+                                        <h3 className="font-display text-3xl md:text-4xl lg:text-5xl group-hover:translate-x-4 transition-transform duration-500 ease-out">
+                                            {service.title}
+                                        </h3>
                                     </div>
 
-                                    {/* Hover background wipe */}
-                                    <div className="absolute inset-0 bg-accent/5 scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
-                                </motion.div>
-                            </Link>
+                                    {/* Description and Image Peek */}
+                                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full lg:w-[55%] ml-14 md:ml-0 gap-8">
+                                        <p className={`text-lg text-text-secondary ${inter.variable} font-sans group-hover:text-text-primary transition-colors duration-500 max-w-xs`}>
+                                            {service.outcome}
+                                        </p>
+
+                                        {/* Hover Image Reveal - positioned at far right */}
+                                        <div className="hidden lg:block absolute right-6 top-1/2 -translate-y-1/2 w-[220px] h-[150px] rounded-xl overflow-hidden opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 pointer-events-none shadow-2xl">
+                                            <Image src={service.image} alt={service.title} fill className="object-cover" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Hover background wipe */}
+                                <div className="absolute inset-0 bg-accent/5 scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
+                            </motion.div>
                         ))}
                     </div>
                 </div>
