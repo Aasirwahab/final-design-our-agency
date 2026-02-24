@@ -196,14 +196,6 @@ export default function Hero() {
                         initial="hidden"
                         animate="show"
                         custom={1.6}
-                        whileInView={{
-                            y: [0, -4, 0],
-                            transition: {
-                                duration: 4,
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                            }
-                        }}
                     >
                         <div className="flex -space-x-2">
                             {[1, 2, 3].map((i) => (

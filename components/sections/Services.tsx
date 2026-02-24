@@ -31,14 +31,14 @@ export default function Services() {
                         return (
                             <RevealOnScroll key={service.id} delay={index * 0.05} y={20}>
                                 <div
-                                    className="group border-b border-border transition-colors duration-300"
+                                    className={`group border-b border-border transition-all duration-300 ${isExpanded ? 'bg-bg-elevated/30 rounded-xl px-4 lg:px-6 -mx-4 lg:-mx-6' : ''}`}
                                     onMouseEnter={() => setExpandedIndex(index)}
                                     onMouseLeave={() => setExpandedIndex(null)}
                                 >
                                     {/* eslint-disable-next-line jsx-a11y/role-supports-aria-props, jsx-a11y/aria-proptypes */}
                                     <button
                                         onClick={() => setExpandedIndex(isExpanded ? null : index)}
-                                        className={`w-full relative z-10 text-left py-6 lg:py-10 flex items-center justify-between gap-4 transition-colors duration-500 cursor-pointer ${isExpanded ? 'bg-bg-elevated/30 lg:px-6 lg:-mx-6 rounded-lg' : ''}`}
+                                        className="w-full relative z-10 text-left py-6 lg:py-10 flex items-center justify-between gap-4 transition-colors duration-500 cursor-pointer"
                                         {...{ 'aria-expanded': isExpanded }}
                                     >
                                         <div className="flex items-center gap-4 lg:gap-16 min-w-0">
