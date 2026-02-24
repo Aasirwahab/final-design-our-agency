@@ -244,33 +244,83 @@ export default function ServicesContent() {
 
                     <div className="flex flex-col w-full border-t border-border">
                         {services.map((service, idx) => (
-                            <motion.div key={idx} className="group border-b border-border relative transition-colors duration-500 hover:bg-accent/5">
-                                <div className="px-6 md:px-12 py-10 md:py-16 flex flex-col lg:flex-row lg:items-center justify-between gap-8 md:gap-16 relative z-10 w-full overflow-hidden">
-
+                            <motion.div
+                                key={idx}
+                                className="group border-b border-border relative transition-colors duration-500 hover:bg-accent/5"
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: '-60px' }}
+                                transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                            >
+                                {/* ── DESKTOP LAYOUT ── */}
+                                <div className="hidden lg:flex px-12 py-16 flex-row items-center justify-between gap-16 relative z-10 w-full overflow-hidden">
                                     {/* Number and Title */}
-                                    <div className="flex items-start gap-8 md:gap-12 w-full lg:w-[40%] shrink-0">
+                                    <div className="flex items-start gap-12 w-[40%] shrink-0">
                                         <span className={`text-text-secondary ${inter.variable} font-sans group-hover:text-accent transition-colors duration-500`}>
                                             {service.id}
                                         </span>
-                                        <h3 className="font-display text-3xl md:text-4xl lg:text-5xl group-hover:translate-x-4 transition-transform duration-500 ease-out">
+                                        <h3 className="font-display text-5xl group-hover:translate-x-4 transition-transform duration-500 ease-out">
                                             {service.title}
                                         </h3>
                                     </div>
-
-                                    {/* Description and Image Peek */}
-                                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full lg:w-[55%] ml-14 md:ml-0 gap-8">
+                                    {/* Description */}
+                                    <div className="flex items-center justify-between w-[55%] gap-8">
                                         <p className={`text-lg text-text-secondary ${inter.variable} font-sans group-hover:text-text-primary transition-colors duration-500 max-w-xs`}>
                                             {service.outcome}
                                         </p>
-
-                                        {/* Hover Image Reveal - positioned at far right */}
-                                        <div className="hidden lg:block absolute right-6 top-1/2 -translate-y-1/2 w-[220px] h-[150px] rounded-xl overflow-hidden opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 pointer-events-none shadow-2xl">
+                                        {/* Hover Image Reveal */}
+                                        <div className="absolute right-6 top-1/2 -translate-y-1/2 w-[220px] h-[150px] rounded-xl overflow-hidden opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 pointer-events-none shadow-2xl">
                                             <Image src={service.image} alt={service.title} fill className="object-cover" />
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* Hover background wipe */}
+                                {/* ── MOBILE LAYOUT ── */}
+                                <div className="flex lg:hidden flex-col px-5 py-7 gap-5 relative z-10 w-full">
+
+                                    {/* Number + Title Row */}
+                                    <motion.div
+                                        className="flex items-center gap-5"
+                                        initial={{ opacity: 0, x: -20 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                                    >
+                                        <span className={`text-sm font-medium text-text-muted ${inter.variable} font-sans shrink-0 opacity-60`}>
+                                            {service.id}
+                                        </span>
+                                        <h3 className="font-display text-[1.75rem] leading-tight text-text-primary">
+                                            {service.title}
+                                        </h3>
+                                    </motion.div>
+
+                                    {/* Image */}
+                                    <motion.div
+                                        className="w-full rounded-2xl overflow-hidden relative shadow-xl"
+                                        style={{ aspectRatio: '16/9' }}
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        whileInView={{ opacity: 1, scale: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                                    >
+                                        <Image src={service.image} alt={service.title} fill className="object-cover" />
+                                        {/* Subtle gradient overlay */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-bg-dark/40 to-transparent pointer-events-none" />
+                                    </motion.div>
+
+                                    {/* Description */}
+                                    <motion.p
+                                        className={`text-base text-text-secondary leading-relaxed ${inter.variable} font-sans`}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                                    >
+                                        {service.outcome}
+                                    </motion.p>
+                                </div>
+
+                                {/* Hover background wipe (desktop) */}
                                 <div className="absolute inset-0 bg-accent/5 scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
                             </motion.div>
                         ))}
