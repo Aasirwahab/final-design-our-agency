@@ -74,9 +74,12 @@ export default function WorksPage() {
                                         <h2 className="text-2xl font-display text-text-primary mb-2 group-hover:text-accent transition-colors">
                                             {project.title}
                                         </h2>
-                                        <div className="flex flex-wrap gap-2 text-sm text-text-secondary">
+                                        <div className="flex items-center gap-2 overflow-hidden">
                                             {project.tags.map(tag => (
-                                                <span key={tag} className="after:content-['•'] after:mx-2 last:after:hidden">
+                                                <span
+                                                    key={tag}
+                                                    className="shrink-0 text-xs font-medium px-2.5 py-1 rounded-full border border-border/60 text-text-secondary bg-bg-elevated/60 whitespace-nowrap"
+                                                >
                                                     {tag}
                                                 </span>
                                             ))}
