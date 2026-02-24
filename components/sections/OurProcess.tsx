@@ -80,7 +80,7 @@ export default function OurProcess() {
                                             </motion.div>
                                         </div>
 
-                                        <RevealOnScroll transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
+                                        <RevealOnScroll>
                                             <div className="relative p-7 md:p-10 rounded-2xl md:rounded-3xl border border-border/50 bg-bg-elevated/20 hover:bg-bg-elevated/40 backdrop-blur-sm transition-all duration-500 group-hover:border-accent/30 group-hover:-translate-y-2 shadow-sm hover:shadow-xl hover:shadow-accent/5">
                                                 <div className="absolute top-6 right-8 text-4xl md:text-6xl font-display text-text-muted/5 group-hover:text-accent/10 transition-colors duration-500 pointer-events-none block">
                                                     {step.id}
