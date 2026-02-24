@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import CustomCursor from '@/components/ui/CustomCursor'
 import Preloader from '@/components/ui/Preloader'
+import SmoothScrolling from '@/components/ui/SmoothScrolling'
 import './globals.css'
 
 export const viewport: Viewport = {
@@ -29,15 +30,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${instrumentSerif.variable} bg-bg-primary text-text-primary antialiased`}>
       <body className="min-h-screen flex flex-col font-sans">
-        {/* Film grain overlay for organic texture */}
-        <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.03] bg-black/5" />
-        <Preloader />
-        <CustomCursor />
-        <Navbar />
-        <main className="grow pt-24">
-          {children}
-        </main>
-        <Footer />
+        <SmoothScrolling>
+          {/* Film grain overlay for organic texture */}
+          <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.03] bg-black/5" />
+          <Preloader />
+          <CustomCursor />
+          <Navbar />
+          <main className="grow pt-24">
+            {children}
+          </main>
+          <Footer />
+        </SmoothScrolling>
       </body>
     </html>
   )
