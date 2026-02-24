@@ -63,7 +63,7 @@ export const portfolio = [
         year: "2026",
         category: "Web & Branding",
         size: "large",
-        image: "/projects/citylife.png"
+        image: "/projects/citylife-branding-new-converter.webp"
     },
     {
         id: 2,
@@ -74,7 +74,7 @@ export const portfolio = [
         year: "2025",
         category: "Tourism",
         size: "small",
-        image: "/projects/pappys.png"
+        image: "/projects/Pappy's Arugambay.webp"
     },
     {
         id: 3,
@@ -85,7 +85,7 @@ export const portfolio = [
         year: "2025",
         category: "Tourism",
         size: "large",
-        image: "/projects/kitesurfing.png"
+        image: "/projects/Kitesurfing Kalpitiya.webp"
     },
     {
         id: 4,
@@ -96,7 +96,7 @@ export const portfolio = [
         year: "2025",
         category: "E-commerce",
         size: "small",
-        image: "/projects/signature-aroma.png"
+        image: "/projects/Signature Aroma.webp"
     },
     {
         id: 5,
@@ -107,7 +107,7 @@ export const portfolio = [
         year: "2025",
         category: "E-commerce",
         size: "small",
-        image: "/projects/craft-clothing.png"
+        image: "/projects/Craft Clothing.webp"
     },
     {
         id: 6,
@@ -118,7 +118,7 @@ export const portfolio = [
         year: "2025",
         category: "SaaS",
         size: "small",
-        image: "/projects/wavepos.png"
+        image: "/projects/WavePOS Cloud.webp"
     }
 ];
 
