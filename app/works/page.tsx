@@ -69,25 +69,25 @@ export default function WorksPage() {
                                     <div className="absolute inset-0 bg-linear-to-br from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                                 </TiltCard>
 
-                                <div className="flex items-start justify-between gap-4">
-                                    <div>
-                                        <h2 className="text-2xl font-display text-text-primary mb-2 group-hover:text-accent transition-colors">
+                                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                                    <div className="flex-1 min-w-0">
+                                        <h2 className="text-2xl font-display text-text-primary mb-2 group-hover:text-accent transition-colors truncate">
                                             {project.title}
                                         </h2>
                                         <div className="flex items-center gap-2 overflow-hidden">
                                             {project.tags.map(tag => (
                                                 <span
                                                     key={tag}
-                                                    className="shrink-0 text-xs font-medium px-2.5 py-1 rounded-full border border-border/60 text-text-secondary bg-bg-elevated/60 whitespace-nowrap"
+                                                    className="shrink-0 text-[10px] md:text-xs font-medium px-2.5 py-1 rounded-full border border-border/60 text-text-secondary bg-bg-elevated/60 whitespace-nowrap"
                                                 >
                                                     {tag}
                                                 </span>
                                             ))}
                                         </div>
                                     </div>
-                                    <div className="flex items-center gap-3 shrink-0">
-                                        <span className="text-xs text-text-muted tracking-wider uppercase bg-accent/10 text-accent px-3 py-1 rounded-full">{project.category}</span>
-                                        <span className="text-sm text-text-muted border border-border px-3 py-1 rounded-full">
+                                    <div className="flex items-center gap-3 shrink-0 sm:mt-1">
+                                        <span className="text-[10px] md:text-xs text-text-muted tracking-wider uppercase bg-accent/10 text-accent px-3 py-1 rounded-full">{project.category}</span>
+                                        <span className="text-xs md:text-sm text-text-muted border border-border px-3 py-1 rounded-full">
                                             {project.year}
                                         </span>
                                     </div>

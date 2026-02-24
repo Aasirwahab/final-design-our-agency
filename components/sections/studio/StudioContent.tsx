@@ -242,35 +242,25 @@ export default function StudioContent() {
                 <div className="flex flex-col w-full border-t border-border">
                     {values.map((val, idx) => (
                         <RevealOnScroll key={idx} delay={0.05 * idx}>
-                            <motion.div whileTap={{ scale: 0.98 }} className="group border-b border-border cursor-pointer relative transition-colors duration-500 hover:bg-accent/5">
-
+                            <div className="group border-b border-border relative transition-colors duration-500">
                                 <div className="px-6 md:px-12 py-12 md:py-16 max-w-[1400px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-8 md:gap-16 relative z-10 w-full">
                                     {/* Left side: Number & Title */}
                                     <div className="flex items-start md:items-center gap-6 md:gap-12 w-full lg:w-1/2">
-                                        <span className="font-display text-3xl md:text-5xl text-border group-hover:text-accent transition-colors duration-500 w-12 md:w-16">
+                                        <span className="font-display text-3xl md:text-5xl text-border group-hover:text-border transition-colors duration-500 w-12 md:w-16">
                                             0{idx + 1}
                                         </span>
-                                        <h3 className="font-display text-3xl md:text-5xl text-text-primary group-hover:text-accent transition-colors duration-500">
+                                        <h3 className="font-display text-3xl md:text-5xl text-text-primary group-hover:text-text-primary transition-colors duration-500">
                                             {val.title}
                                         </h3>
                                     </div>
-
-                                    {/* Right side: Description & Arrow */}
+                                    {/* Right side: Description */}
                                     <div className="flex items-center justify-between w-[90%] lg:w-1/2 ml-14 md:ml-0 relative">
-                                        <p className={`text-lg md:text-xl text-text-secondary ${inter.variable} font-sans group-hover:text-text-primary transition-colors duration-500 max-w-lg lg:ml-auto lg:mr-16`}>
+                                        <p className={`text-lg md:text-xl text-text-secondary ${inter.variable} font-sans transition-colors duration-500 max-w-lg lg:ml-auto lg:mr-16`}>
                                             {val.description}
                                         </p>
-
-                                        {/* Right arrow icon */}
-                                        <div className="absolute right-0 text-text-muted group-hover:text-accent transition-all duration-500 hidden lg:block">
-                                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                <polyline points="12 5 19 12 12 19"></polyline>
-                                            </svg>
-                                        </div>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </div>
                         </RevealOnScroll>
                     ))}
                 </div>
@@ -295,17 +285,16 @@ export default function StudioContent() {
 
                         return (
                             <RevealOnScroll key={member.id} delay={0.1 * (idx % 2)}>
-                                <div className={`group cursor-pointer flex flex-col ${offsetClass}`}>
-                                    <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-6 transition-all duration-700">
+                                <div className={`flex flex-col ${offsetClass}`}>
+                                    <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-6">
                                         <Image
                                             src={member.image}
                                             alt={member.name}
                                             fill
-                                            className={`object-cover transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110 ${member.position}`}
+                                            className={`object-cover ${member.position}`}
                                         />
-                                        <div className="absolute inset-0 bg-accent/40 opacity-0 group-hover:opacity-100 mix-blend-multiply transition-opacity duration-700 pointer-events-none" />
                                     </div>
-                                    <h3 className="font-display text-3xl mb-1 group-hover:text-accent transition-colors duration-500">
+                                    <h3 className="font-display text-3xl mb-1 text-text-primary">
                                         {member.name}
                                     </h3>
                                     <p className={`text-text-secondary text-xs tracking-widest uppercase font-medium ${inter.variable} font-sans`}>
