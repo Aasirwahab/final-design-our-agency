@@ -41,14 +41,14 @@ export default function FAQ() {
                             <RevealOnScroll key={index} delay={index * 0.05}>
                                 <div
                                     className={`group transition-all duration-500 rounded-2xl ${isOpen
-                                            ? 'bg-bg-elevated/40 border border-accent/20'
-                                            : 'bg-transparent border border-border/40 hover:border-accent/30'
+                                        ? 'bg-bg-elevated/40 border border-accent/20'
+                                        : 'bg-transparent border border-border/40 hover:border-accent/30'
                                         }`}
                                 >
                                     <button
                                         onClick={() => toggleFAQ(index)}
                                         className="w-full flex items-center justify-between p-6 md:p-8 text-left focus:outline-none"
-                                        aria-expanded={isOpen}
+                                        {...{ 'aria-expanded': isOpen }}
                                     >
                                         <h3 className={`text-lg md:text-xl font-display transition-colors duration-300 ${isOpen ? 'text-accent' : 'text-text-primary group-hover:text-accent/80'
                                             }`}>
