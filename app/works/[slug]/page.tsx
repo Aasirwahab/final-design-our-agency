@@ -23,7 +23,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
     }
 
     return (
-        <main className="min-h-screen bg-bg-primary pt-32 md:pt-40 pb-24">
+        <main className="min-h-screen bg-bg-primary pt-24 md:pt-32 pb-24">
             <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12">
 
                 {/* Back button */}

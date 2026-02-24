@@ -54,7 +54,7 @@ export default function WorksPage() {
                             whileTap={{ scale: 0.97 }}
                             transition={{ duration: 0.5, delay: index * 0.05, type: 'spring', stiffness: 100, damping: 20 }}
                         >
-                            <Link href={project.url} className="block group h-full">
+                            <Link href={`/works/${project.slug}`} className="block group h-full">
                                 <TiltCard className="relative w-full aspect-4/3 bg-bg-elevated rounded-xl overflow-hidden mb-5 shadow-md hover:shadow-2xl transition-shadow duration-500">
                                     <Image
                                         src={project.image}

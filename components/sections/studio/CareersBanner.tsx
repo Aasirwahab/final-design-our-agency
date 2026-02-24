@@ -34,7 +34,7 @@ export default function CareersBanner() {
                 </RevealOnScroll>
 
                 <RevealOnScroll delay={0.3}>
-                    <MagneticButton href="mailto:hello@webvoxel.com" variant="primary">
+                    <MagneticButton href="/careers" variant="primary">
                         View Open Positions
                     </MagneticButton>
                 </RevealOnScroll>
