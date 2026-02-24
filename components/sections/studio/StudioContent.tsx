@@ -231,7 +231,7 @@ export default function StudioContent() {
             {/* EXPANDING VALUES INTERACTIVE SECTION */}
             <section className="py-24 w-full overflow-hidden">
                 <RevealOnScroll>
-                    <div className="mb-24 px-6 md:px-12 max-w-[1400px] mx-auto">
+                    <div className="mb-16 md:mb-24 px-6 md:px-12 max-w-[1400px] mx-auto">
                         <h2 className="font-display text-5xl md:text-7xl lg:text-[7rem] leading-tight mb-8">
                             What Drives <br />
                             <span className="text-border">Us Forward</span>
@@ -239,27 +239,89 @@ export default function StudioContent() {
                     </div>
                 </RevealOnScroll>
 
-                <div className="flex flex-col w-full border-t border-border">
+                {/* ── MOBILE LAYOUT: Animated Cards ── */}
+                <div className="flex lg:hidden flex-col gap-4 px-5 py-2 max-w-[1400px] mx-auto">
+                    {values.map((val, idx) => (
+                        <motion.div
+                            key={idx}
+                            className="relative flex flex-col gap-3 rounded-2xl bg-bg-elevated/40 border border-border overflow-hidden p-6"
+                            initial={{ opacity: 0, y: 40, scale: 0.97 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            viewport={{ once: true, margin: '-40px' }}
+                            transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                        >
+                            {/* Animated accent left border */}
+                            <motion.div
+                                className="absolute left-0 top-0 bottom-0 w-[3px] bg-accent origin-top"
+                                initial={{ scaleY: 0 }}
+                                whileInView={{ scaleY: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.7, delay: idx * 0.1 + 0.2, ease: [0.16, 1, 0.3, 1] }}
+                            />
+
+                            {/* Number badge */}
+                            <motion.span
+                                className={`text-xs font-semibold tracking-[0.2em] uppercase text-accent ${inter.variable} font-sans`}
+                                initial={{ opacity: 0, x: -10 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: idx * 0.1 + 0.15, ease: [0.16, 1, 0.3, 1] }}
+                            >
+                                0{idx + 1}
+                            </motion.span>
+
+                            {/* Title */}
+                            <motion.h3
+                                className="font-display text-2xl text-text-primary leading-tight"
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: idx * 0.1 + 0.2, ease: [0.16, 1, 0.3, 1] }}
+                            >
+                                {val.title}
+                            </motion.h3>
+
+                            {/* Description */}
+                            <motion.p
+                                className={`text-base text-text-secondary leading-relaxed ${inter.variable} font-sans`}
+                                initial={{ opacity: 0, y: 8 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: idx * 0.1 + 0.3, ease: [0.16, 1, 0.3, 1] }}
+                            >
+                                {val.description}
+                            </motion.p>
+
+                            {/* Subtle background glow on hover */}
+                            <div className="absolute inset-0 bg-accent/5 opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl" />
+                        </motion.div>
+                    ))}
+                </div>
+
+                {/* ── DESKTOP LAYOUT: Horizontal list ── */}
+                <div className="hidden lg:flex flex-col w-full border-t border-border">
                     {values.map((val, idx) => (
                         <RevealOnScroll key={idx} delay={0.05 * idx}>
                             <div className="group border-b border-border relative transition-colors duration-500">
-                                <div className="px-6 md:px-12 py-12 md:py-16 max-w-[1400px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-8 md:gap-16 relative z-10 w-full">
+                                <div className="px-12 py-16 max-w-[1400px] mx-auto flex flex-row items-center justify-between gap-16 relative z-10 w-full">
                                     {/* Left side: Number & Title */}
-                                    <div className="flex items-start md:items-center gap-6 md:gap-12 w-full lg:w-1/2">
-                                        <span className="font-display text-3xl md:text-5xl text-border group-hover:text-border transition-colors duration-500 w-12 md:w-16">
+                                    <div className="flex items-center gap-12 w-1/2">
+                                        <span className="font-display text-5xl text-border group-hover:text-border transition-colors duration-500 w-16">
                                             0{idx + 1}
                                         </span>
-                                        <h3 className="font-display text-3xl md:text-5xl text-text-primary group-hover:text-text-primary transition-colors duration-500">
+                                        <h3 className="font-display text-5xl text-text-primary group-hover:text-text-primary transition-colors duration-500 group-hover:translate-x-3 transition-transform ease-out">
                                             {val.title}
                                         </h3>
                                     </div>
                                     {/* Right side: Description */}
-                                    <div className="flex items-center justify-between w-[90%] lg:w-1/2 ml-14 md:ml-0 relative">
-                                        <p className={`text-lg md:text-xl text-text-secondary ${inter.variable} font-sans transition-colors duration-500 max-w-lg lg:ml-auto lg:mr-16`}>
+                                    <div className="flex items-center justify-between w-1/2 relative">
+                                        <p className={`text-xl text-text-secondary ${inter.variable} font-sans transition-colors duration-500 max-w-lg ml-auto mr-16 group-hover:text-text-primary`}>
                                             {val.description}
                                         </p>
                                     </div>
                                 </div>
+                                {/* Hover background wipe */}
+                                <div className="absolute inset-0 bg-accent/5 scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
                             </div>
                         </RevealOnScroll>
                     ))}
