@@ -20,7 +20,12 @@ export default function Footer() {
                 <RevealOnScroll className="flex flex-col md:flex-row justify-between items-start md:items-end mb-24 gap-8">
                     <h2 className="font-display text-5xl md:text-7xl lg:text-[7rem] leading-[1] max-w-4xl tracking-tight">
                         Let&apos;s build <br />
-                        <span className="text-white/40 italic font-light hover:text-accent transition-colors duration-500 cursor-default">the future.</span>
+                        <span className="text-accent italic font-light relative inline-block">
+                            the future.
+                            <svg width="100%" height="12" viewBox="0 0 300 12" fill="none" className="absolute -bottom-2 left-0 text-accent/30">
+                                <path d="M2.5 9.5C50 3.5 150 1.5 297.5 9.5" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+                            </svg>
+                        </span>
                     </h2>
                     <Link
                         href="/contact"
