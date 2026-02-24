@@ -12,6 +12,8 @@ function AnimatedHeading() {
     const line2Words = [
         { text: "actually ", accent: true },
         { text: "grow ", accent: true },
+    ]
+    const line3Words = [
         { text: "businesses.", accent: false },
     ]
 
@@ -31,7 +33,7 @@ function AnimatedHeading() {
     const line1Words = line1.split(' ')
 
     return (
-        <h1 className="font-display text-5xl md:text-6xl lg:text-[5.5rem] leading-[1.05] tracking-tight mb-6">
+        <h1 className="font-display text-4xl md:text-5xl lg:text-[4.25rem] leading-[1.05] tracking-tight mb-3 lg:mb-4">
             {/* Line 1 */}
             <span className="block">
                 {line1Words.map((word, i) => (
@@ -58,6 +60,22 @@ function AnimatedHeading() {
                         initial="hidden"
                         animate="show"
                         custom={line1Words.length + i}
+                    >
+                        {w.text.trim()}
+                    </motion.span>
+                ))}
+            </span>
+
+            {/* Line 3 */}
+            <span className="block mt-2">
+                {line3Words.map((w, i) => (
+                    <motion.span
+                        key={i}
+                        className={`inline-block mr-[0.28em] ${w.accent ? 'text-accent' : ''}`}
+                        variants={wordVars}
+                        initial="hidden"
+                        animate="show"
+                        custom={line1Words.length + line2Words.length + i}
                     >
                         {w.text.trim()}
                     </motion.span>
@@ -102,7 +120,7 @@ function ProjectMontage() {
                             fill
                             priority={i < 4}
                             className="object-cover"
-                            sizes="(max-width: 1024px) 0vw, 30vw"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                         />
                         <div className="absolute inset-0 bg-bg-primary/10" />
                     </div>
@@ -124,17 +142,17 @@ export default function Hero() {
     }
 
     return (
-        <section className="relative min-h-screen flex items-center pb-24 overflow-hidden">
+        <section className="relative pt-8 lg:pt-16 pb-12 overflow-hidden">
             {/* Background atmosphere */}
             <div className="absolute top-0 right-0 w-[60%] h-[70%] bg-accent/3 blur-[120px] rounded-full pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[40%] h-[50%] bg-accent/2 blur-[100px] rounded-full pointer-events-none" />
 
-            <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 relative z-10">
+            <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 relative z-10">
 
                 {/* Left — Content */}
-                <div className="lg:col-span-7 flex flex-col justify-center">
+                <div className="lg:col-span-7 mt-0">
                     <motion.p
-                        className={`text-sm tracking-widest uppercase text-text-muted mb-4 mt-16 lg:mt-6 ${inter.variable} font-sans`}
+                        className={`text-sm tracking-widest uppercase text-text-muted mb-2 ${inter.variable} font-sans`}
                         variants={itemVars}
                         initial="hidden"
                         animate="show"
@@ -146,7 +164,7 @@ export default function Hero() {
                     <AnimatedHeading />
 
                     <motion.p
-                        className={`text-lg md:text-xl text-text-secondary max-w-xl leading-relaxed mb-4 md:mb-6 ${inter.variable} font-sans`}
+                        className={`text-base text-text-secondary max-w-xl leading-relaxed mb-4 md:mb-5 ${inter.variable} font-sans`}
                         variants={itemVars}
                         initial="hidden"
                         animate="show"
@@ -157,7 +175,7 @@ export default function Hero() {
                     </motion.p>
 
                     <motion.div
-                        className="flex flex-wrap items-center gap-6 mb-12"
+                        className="flex flex-wrap items-center gap-4 mb-5 lg:mb-6"
                         variants={itemVars}
                         initial="hidden"
                         animate="show"
@@ -173,7 +191,7 @@ export default function Hero() {
 
                     {/* Trust Signals */}
                     <motion.div
-                        className="flex items-center gap-4 pt-8 border-t border-border/60 max-w-md"
+                        className="flex items-center gap-4 pt-4 border-t border-border/60 max-w-md"
                         variants={itemVars}
                         initial="hidden"
                         animate="show"
@@ -211,7 +229,7 @@ export default function Hero() {
 
                 {/* Right — Scrolling project montage */}
                 <motion.div
-                    className="hidden lg:block lg:col-span-5"
+                    className="hidden lg:block lg:col-span-5 pl-8"
                     initial={{ opacity: 0, x: 40 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
