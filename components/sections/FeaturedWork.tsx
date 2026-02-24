@@ -74,15 +74,14 @@ export default function FeaturedWork() {
                         <motion.div
                             key={current}
                             custom={direction}
-                            variants={slideVariants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                            className="w-full cursor-grab active:cursor-grabbing"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.3, ease: 'easeInOut' }}
+                            className="w-full"
                             drag="x"
                             dragConstraints={{ left: 0, right: 0 }}
-                            dragElastic={1}
+                            dragElastic={0.8}
                             onDragEnd={(e, { offset, velocity }) => {
                                 const swipe = swipePower(offset.x, velocity.x);
                                 if (swipe < -swipeConfidenceThreshold) {
@@ -93,8 +92,14 @@ export default function FeaturedWork() {
                             }}
                         >
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-                                {/* Image — large (left side) */}
-                                <div className="lg:col-span-7 relative group block">
+                                {/* Image — animates independently */}
+                                <motion.div
+                                    className="lg:col-span-7 relative group block"
+                                    initial={{ opacity: 0, x: direction > 0 ? 60 : -60, scale: 0.96 }}
+                                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                                    exit={{ opacity: 0, x: direction > 0 ? -60 : 60, scale: 0.96 }}
+                                    transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                                >
                                     <Link href={project.url} className="block w-full">
                                         <TiltCard className="relative w-full aspect-[4/3] sm:aspect-16/10 lg:aspect-[4/3] bg-bg-elevated rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
                                             <Image
@@ -109,30 +114,65 @@ export default function FeaturedWork() {
                                             <div className="absolute inset-0 bg-linear-to-br from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                                         </TiltCard>
                                     </Link>
-                                </div>
+                                </motion.div>
 
-                                {/* Info panel (right side) */}
-                                <div className="lg:col-span-5 flex flex-col justify-center">
-                                    <p className="text-sm font-semibold tracking-widest uppercase text-accent mb-4">
+                                {/* Info panel — staggered children animate in */}
+                                <div className="lg:col-span-5 flex flex-col justify-center overflow-hidden">
+                                    <motion.p
+                                        className="text-sm font-semibold tracking-widest uppercase text-accent mb-4"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.45, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+                                    >
                                         {project.category}
-                                    </p>
-                                    <h3 className="text-3xl sm:text-4xl md:text-5xl font-display text-text-primary mb-6">
-                                        {project.title}
-                                    </h3>
-                                    <p className="text-text-secondary text-lg leading-relaxed mb-8">
-                                        A {project.category.toLowerCase()} project crafted with modern tools and attention to detail.
-                                    </p>
+                                    </motion.p>
 
-                                    <div className="flex flex-wrap gap-3 mb-10">
+                                    <motion.h3
+                                        className="text-3xl sm:text-4xl md:text-5xl font-display text-text-primary mb-6"
+                                        initial={{ opacity: 0, y: 25 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                                    >
+                                        {project.title}
+                                    </motion.h3>
+
+                                    <motion.p
+                                        className="text-text-secondary text-lg leading-relaxed mb-8"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.45, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                                    >
+                                        A {project.category.toLowerCase()} project crafted with modern tools and attention to detail.
+                                    </motion.p>
+
+                                    <motion.div
+                                        className="flex flex-wrap gap-3 mb-10"
+                                        initial={{ opacity: 0, y: 15 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.4, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                                    >
                                         {project.tags.map(tag => (
                                             <span key={tag} className="text-sm px-4 py-1.5 rounded-full border border-border text-text-muted bg-white">
                                                 {tag}
                                             </span>
                                         ))}
-                                    </div>
+                                    </motion.div>
 
-                                    <div className="flex flex-wrap items-center gap-6 mb-12">
-                                        <Link href={`/works/${project.slug}`} className="inline-flex items-center gap-2 bg-text-primary text-bg-primary hover:bg-accent hover:text-white px-6 py-3.5 rounded-full transition-all duration-300 font-medium group text-base shadow-sm hover:shadow-md">
+                                    <motion.div
+                                        className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-12"
+                                        initial={{ opacity: 0, y: 15 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.4, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                                    >
+                                        <Link
+                                            href={`/works/${project.slug}`}
+                                            className="inline-flex items-center justify-center gap-2 bg-text-primary text-bg-primary hover:bg-accent hover:text-white px-6 py-4 rounded-full transition-all duration-300 font-medium group text-base shadow-sm hover:shadow-md"
+                                        >
                                             Read case study
                                             <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0 ml-1">
                                                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
@@ -142,17 +182,27 @@ export default function FeaturedWork() {
                                         </Link>
 
                                         {project.url !== "#" && (
-                                            <a href={project.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-text-muted hover:text-text-primary transition-colors font-medium group text-sm border-b border-border hover:border-text-primary pb-0.5">
+                                            <a
+                                                href={project.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center justify-center gap-2 border border-border text-text-primary hover:border-accent hover:text-accent px-6 py-4 rounded-full transition-all duration-300 font-medium group text-base"
+                                            >
                                                 Visit live site
-                                                <svg width="10" height="10" viewBox="0 0 14 14" fill="none" className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                                                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
                                                     <path d="M1 13L13 1M13 1H3M13 1V11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                                 </svg>
                                             </a>
                                         )}
-                                    </div>
+                                    </motion.div>
 
                                     {/* Navigation Controls (Arrows + Dots) */}
-                                    <div className="flex items-center gap-6 border-t border-border pt-8 mt-auto">
+                                    <motion.div
+                                        className="flex items-center gap-6 border-t border-border pt-8 mt-auto"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.4, delay: 0.3 }}
+                                    >
                                         {/* Arrows */}
                                         <div className="flex items-center gap-3">
                                             <button
@@ -193,7 +243,7 @@ export default function FeaturedWork() {
                                                 </button>
                                             ))}
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 </div>
                             </div>
                         </motion.div>
