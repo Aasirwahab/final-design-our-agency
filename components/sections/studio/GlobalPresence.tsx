@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import RevealOnScroll from '../../ui/RevealOnScroll'
@@ -11,17 +11,126 @@ const locations = [
         id: 'uk',
         country: 'United Kingdom',
         city: 'London',
-        timeZone: 'GMT',
-        image: '/projects/citylife.png', // Fallback to an existing image
+        timezone: 'Europe/London',
+        tzLabel: 'GMT',
+        coords: '51.5074° N, 0.1278° W',
+        image: '/uk-headoffice.webp',
     },
     {
         id: 'sl',
         country: 'Sri Lanka',
         city: 'Colombo',
-        timeZone: 'IST',
-        image: '/Zamir Founder.webp', // Fallback, update later if dedicated city images are provided
+        timezone: 'Asia/Colombo',
+        tzLabel: 'IST',
+        coords: '6.9271° N, 79.8612° E',
+        image: '/Zamir Founder.webp',
     }
 ]
+
+function LiveClock({ timezone }: { timezone: string }) {
+    const [time, setTime] = useState('')
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+        const update = () => {
+            setTime(
+                new Date().toLocaleTimeString('en-GB', {
+                    timeZone: timezone,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                })
+            )
+        }
+        update()
+        const interval = setInterval(update, 1000)
+        return () => clearInterval(interval)
+    }, [timezone])
+
+    if (!mounted) return <span className="inline-block w-20 h-4 bg-white/10 rounded animate-pulse" />
+
+    return <span className="tabular-nums text-bg-primary/90 font-medium">{time}</span>
+}
+
+function LocationCard({ loc, index }: { loc: typeof locations[0]; index: number }) {
+    const cardRef = useRef<HTMLDivElement>(null)
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+    const [isHovering, setIsHovering] = useState(false)
+
+    const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+        if (!cardRef.current) return
+        const rect = cardRef.current.getBoundingClientRect()
+        setMousePos({
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top,
+        })
+    }, [])
+
+    return (
+        <RevealOnScroll delay={index * 0.15}>
+            <motion.div
+                ref={cardRef}
+                onMouseMove={handleMouseMove}
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
+                className={`group relative w-full rounded-2xl overflow-hidden bg-bg-dark border border-border/30 cursor-pointer ${index === 0 ? 'aspect-[4/3] md:aspect-[3/4]' : 'aspect-[4/3]'
+                    }`}
+            >
+                {/* Background Image */}
+                <Image
+                    src={loc.image}
+                    alt={`${loc.city}, ${loc.country}`}
+                    fill
+                    className="object-cover opacity-25 filter grayscale group-hover:opacity-50 group-hover:grayscale-[50%] group-hover:scale-105 transition-all duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                />
+
+                {/* Cursor-following spotlight */}
+                <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{
+                        background: isHovering
+                            ? `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(5, 150, 105, 0.15), transparent 40%)`
+                            : 'none',
+                    }}
+                />
+
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/60 to-transparent" />
+
+                {/* Coordinates — top right */}
+                <div className={`absolute top-6 right-6 md:top-8 md:right-8 ${inter.variable} font-sans`}>
+                    <span className="text-[10px] md:text-xs text-bg-primary/30 font-mono tracking-wider group-hover:text-bg-primary/50 transition-colors duration-500">
+                        {loc.coords}
+                    </span>
+                </div>
+
+                {/* Content — bottom */}
+                <div className="absolute p-6 md:p-8 lg:p-10 bottom-0 left-0 w-full flex flex-col justify-end pointer-events-none">
+                    {/* Live clock + timezone */}
+                    <div className={`flex items-center gap-2.5 mb-3 ${inter.variable} font-sans`}>
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                        <span className="text-xs tracking-widest uppercase font-medium text-accent">
+                            {loc.tzLabel}
+                        </span>
+                        <span className="w-px h-3 bg-bg-primary/20 mx-1" />
+                        <LiveClock timezone={loc.timezone} />
+                    </div>
+
+                    {/* City name */}
+                    <h3 className="font-display text-4xl md:text-5xl text-bg-primary mb-1 group-hover:translate-x-2 transition-transform duration-500">
+                        {loc.city}
+                    </h3>
+
+                    {/* Country */}
+                    <p className={`text-lg text-bg-primary/50 ${inter.variable} font-sans group-hover:text-bg-primary/70 transition-colors duration-500`}>
+                        {loc.country}
+                    </p>
+                </div>
+            </motion.div>
+        </RevealOnScroll>
+    )
+}
 
 export default function GlobalPresence() {
     return (
@@ -37,37 +146,9 @@ export default function GlobalPresence() {
                 </div>
             </RevealOnScroll>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
                 {locations.map((loc, idx) => (
-                    <RevealOnScroll key={loc.id} delay={idx * 0.1}>
-                        <div className="group relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-bg-dark border border-border">
-                            {/* Subtle Background Image */}
-                            <Image
-                                src={loc.image}
-                                alt={`${loc.city}, ${loc.country}`}
-                                fill
-                                className="object-cover opacity-20 filter grayscale group-hover:opacity-40 group-hover:scale-105 transition-all duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)]"
-                            />
-                            {/* Gradient Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-bg-dark/90 via-bg-dark/50 to-transparent" />
-
-                            {/* Content */}
-                            <div className="absolute p-8 md:p-10 bottom-0 left-0 w-full flex flex-col justify-end pointer-events-none">
-                                <div className="flex items-center gap-3 mb-2">
-                                    <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                                    <span className={`text-sm tracking-widest uppercase font-medium text-accent ${inter.variable} font-sans`}>
-                                        {loc.timeZone}
-                                    </span>
-                                </div>
-                                <h3 className="font-display text-4xl md:text-5xl text-bg-primary mb-1">
-                                    {loc.city}
-                                </h3>
-                                <p className={`text-xl text-text-muted ${inter.variable} font-sans`}>
-                                    {loc.country}
-                                </p>
-                            </div>
-                        </div>
-                    </RevealOnScroll>
+                    <LocationCard key={loc.id} loc={loc} index={idx} />
                 ))}
             </div>
         </section>
