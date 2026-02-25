@@ -28,10 +28,10 @@ export default function OurProcess() {
             <div className="absolute bottom-0 right-1/4 w-[40%] h-[40%] bg-accent/3 blur-[100px] rounded-full pointer-events-none" />
 
             <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+                <div className="grid grid-cols-1 xl:grid-cols-12 gap-16 xl:gap-24">
 
                     {/* Left: Sticky Header */}
-                    <div className="lg:col-span-5 lg:sticky lg:top-40 h-fit">
+                    <div className="xl:col-span-5 xl:sticky xl:top-40 h-fit">
                         <RevealOnScroll>
                             <div className="space-y-6">
                                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-semibold tracking-wider uppercase">
@@ -48,7 +48,7 @@ export default function OurProcess() {
                     </div>
 
                     {/* Right: Vertical Timeline */}
-                    <div className="lg:col-span-7 relative">
+                    <div className="xl:col-span-7 relative">
                         {/* Vertical Progress Line */}
                         <div className="absolute left-6 md:left-7 lg:left-8 top-8 bottom-8 w-[2px] bg-border/40">
                             <motion.div

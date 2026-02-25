@@ -37,7 +37,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 </div>
 
                 {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-16">
+                <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-8 mb-16">
                     <div className="max-w-2xl">
                         <p className="text-sm font-semibold tracking-widest text-accent uppercase mb-4">{project.category}</p>
                         <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6 text-text-primary">
@@ -93,13 +93,13 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 </div>
 
                 {/* The Story */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24">
-                    <div className="md:col-span-4">
-                        <h2 className="font-display text-3xl text-text-primary sticky top-24">
+                <div className="grid grid-cols-1 xl:grid-cols-12 gap-12 xl:gap-24">
+                    <div className="xl:col-span-4">
+                        <h2 className="font-display text-3xl text-text-primary xl:sticky xl:top-24">
                             The Challenge &<br />Our Approach
                         </h2>
                     </div>
-                    <div className="md:col-span-8 flex flex-col gap-10 text-lg text-text-secondary leading-relaxed font-sans">
+                    <div className="xl:col-span-8 flex flex-col gap-10 text-lg text-text-secondary leading-relaxed font-sans">
                         <p>
                             When <strong>{project.title}</strong> approached us, they were facing a significant challenge in their highly competitive market. Their digital presence did not accurately reflect the high quality of their service, leading to friction in user acquisition and brand trust. They needed a holistic redesign and a modernized technology stack to drive measurable growth.
                         </p>

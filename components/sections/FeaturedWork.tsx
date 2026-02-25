@@ -163,7 +163,7 @@ export default function FeaturedWork() {
                                     </motion.div>
 
                                     <motion.div
-                                        className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-12"
+                                        className="flex flex-col xl:flex-row items-stretch xl:items-center gap-3 mb-12"
                                         initial={{ opacity: 0, y: 15 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
