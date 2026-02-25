@@ -13,6 +13,13 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  // Allow inline styles — needed for dynamic/computed values (e.g. mouse-position gradients)
+  // that cannot be expressed in static CSS files.
+  {
+    rules: {
+      "react/forbid-component-props": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

@@ -85,9 +85,10 @@ function LocationCard({ loc, index }: { loc: typeof locations[0]; index: number 
                     className="object-cover opacity-25 filter grayscale group-hover:opacity-50 group-hover:grayscale-[50%] group-hover:scale-105 transition-all duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)]"
                 />
 
-                {/* Cursor-following spotlight */}
+                {/* Cursor-following spotlight — inline style required for runtime mouse coordinates */}
                 <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    // eslint-disable-next-line react/forbid-component-props
                     style={{
                         background: isHovering
                             ? `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(5, 150, 105, 0.15), transparent 40%)`
