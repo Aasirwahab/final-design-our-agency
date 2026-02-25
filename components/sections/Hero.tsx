@@ -198,9 +198,13 @@ export default function Hero() {
                         custom={1.6}
                     >
                         <div className="flex -space-x-2">
-                            {[1, 2, 3].map((i) => (
+                            {[
+                                'https://randomuser.me/api/portraits/men/32.jpg',
+                                'https://randomuser.me/api/portraits/women/44.jpg',
+                                'https://randomuser.me/api/portraits/men/75.jpg',
+                            ].map((src, i) => (
                                 <div key={i} className="w-10 h-10 rounded-full border-2 border-bg-primary overflow-hidden relative bg-bg-elevated flex items-center justify-center">
-                                    <Image src={`/projects/citylife.png`} alt="Client" fill sizes="48px" className="object-cover opacity-80" />
+                                    <Image src={src} alt="Client" fill sizes="48px" className="object-cover" />
                                 </div>
                             ))}
                         </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import TransitionLink from '@/components/ui/TransitionLink'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -40,14 +41,14 @@ export default function Navbar() {
                     {/* Left — Nav links */}
                     <nav className="hidden lg:flex items-center gap-8 flex-1">
                         {[...leftLinks, ...rightLinks].map((link) => (
-                            <Link
+                            <TransitionLink
                                 key={link.name}
                                 href={link.href}
                                 className="text-sm tracking-wide text-text-secondary hover:text-text-primary transition-colors relative group"
                             >
                                 {link.name}
                                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" />
-                            </Link>
+                            </TransitionLink>
                         ))}
                     </nav>
 
@@ -65,12 +66,12 @@ export default function Navbar() {
 
                     {/* Right — Divider + CTA */}
                     <div className="hidden lg:flex items-center gap-6 flex-1 justify-end">
-                        <Link
+                        <TransitionLink
                             href="/contact"
                             className="bg-accent text-white px-6 py-2.5 rounded-full font-medium text-sm tracking-wide hover:bg-accent-hover hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
                         >
                             Get Started
-                        </Link>
+                        </TransitionLink>
                     </div>
 
                     {/* Mobile hamburger */}
@@ -106,13 +107,13 @@ export default function Navbar() {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 + (i * 0.08), duration: 0.4 }}
                                 >
-                                    <Link
+                                    <TransitionLink
                                         href={link.href}
                                         onClick={() => setMobileMenuOpen(false)}
                                         className="font-display text-4xl hover:text-accent transition-colors"
                                     >
                                         {link.name}
-                                    </Link>
+                                    </TransitionLink>
                                 </motion.div>
                             ))}
                             <motion.div
@@ -121,13 +122,13 @@ export default function Navbar() {
                                 transition={{ delay: 0.5, duration: 0.4 }}
                                 className="mt-6"
                             >
-                                <Link
+                                <TransitionLink
                                     href="/contact"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className="bg-accent text-white px-8 py-4 rounded-full font-medium text-lg"
                                 >
                                     Get Started
-                                </Link>
+                                </TransitionLink>
                             </motion.div>
                         </nav>
                     </motion.div>

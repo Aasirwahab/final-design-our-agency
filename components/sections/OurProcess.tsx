@@ -50,7 +50,7 @@ export default function OurProcess() {
                     {/* Right: Vertical Timeline */}
                     <div className="xl:col-span-7 relative">
                         {/* Vertical Progress Line */}
-                        <div className="absolute left-6 md:left-7 lg:left-8 top-8 bottom-8 w-[2px] bg-border/40">
+                        <div className="absolute left-[19px] md:left-[27px] top-8 bottom-8 w-[2px] bg-border/40">
                             <motion.div
                                 className="absolute top-0 left-0 w-full bg-accent origin-top h-full"
                                 style={{ scaleY }}
@@ -61,10 +61,10 @@ export default function OurProcess() {
                             {processSteps.map((step, index) => {
                                 const Icon = icons[index] || icons[0]
                                 return (
-                                    <div key={step.id} className="relative pl-12 md:pl-20 group">
+                                    <div key={step.id} className="relative pl-14 md:pl-20 group">
 
                                         {/* Timeline Node (Mobile & Desktop) */}
-                                        <div className="absolute left-[-2px] md:left-0 top-0 w-12 md:w-16 h-12 md:h-16 flex items-center justify-center">
+                                        <div className="absolute left-0 top-0 w-10 md:w-14 h-10 md:h-14 flex items-center justify-center">
                                             <motion.div
                                                 className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-bg-elevated border border-border flex items-center justify-center relative z-20 group-hover:border-accent group-hover:bg-accent group-hover:text-bg-primary transition-all duration-500 overflow-hidden"
                                                 initial={{ opacity: 0, scale: 0.5 }}
