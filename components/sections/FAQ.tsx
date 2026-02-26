@@ -2,12 +2,14 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { faqs } from '@/lib/data'
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 import RevealOnScroll from '../ui/RevealOnScroll'
 import { ChevronDown } from 'lucide-react'
 
 export default function FAQ() {
     const [openIndex, setOpenIndex] = useState<number | null>(0)
+    const faqs = useQuery(api.faqs.list) || []
 
     const toggleFAQ = (index: number) => {
         setOpenIndex(openIndex === index ? null : index)

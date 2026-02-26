@@ -9,6 +9,8 @@ import { Inconsolata } from 'next/font/google'
 import MagneticButton from '@/components/ui/MagneticButton'
 import RevealOnScroll from '@/components/ui/RevealOnScroll'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 
 const inter = Inconsolata({ subsets: ['latin'], variable: '--font-inter' })
 
@@ -58,6 +60,16 @@ const TimelineStep = ({ step, idx, totalSteps, progress, inter }: { step: any, i
 };
 
 export default function ServicesContent() {
+    const services = useQuery(api.services.list)
+
+    if (services === undefined) {
+        return <div className="py-32 bg-bg-primary min-h-[70vh]"></div>
+    }
+
+    return <InnerServicesContent services={services} />
+}
+
+function InnerServicesContent({ services }: { services: any }) {
     // Scroll progress for the entire page
     const containerRef = useRef<HTMLDivElement>(null)
     const { scrollYProgress } = useScroll({
@@ -75,87 +87,6 @@ export default function ServicesContent() {
         offset: ["start center", "end center"]
     })
     const smoothTimelineProgress = useSpring(timelineProgress, { damping: 20, stiffness: 50 })
-
-    const services = [
-        {
-            id: '01',
-            title: 'Web Development',
-            slug: 'web-development',
-            outcome: 'Turn visitors into customers with fast, secure, high-performance websites built for growth.',
-            features: [
-                'Custom-built for your business goals',
-                'Mobile-first & conversion-optimized',
-                'SEO-ready from day one',
-                'Optimized for speed, stability & scale'
-            ],
-            image: '/services/web-development.png',
-        },
-        {
-            id: '02',
-            title: 'App Development',
-            slug: 'app-development',
-            outcome: 'Deliver seamless mobile and web apps that engage users and scale with your product vision.',
-            features: [
-                'iOS, Android & cross-platform solutions',
-                'Scalable cloud-backed architecture',
-                'Secure integrations & APIs',
-                'App store–ready deployment'
-            ],
-            image: '/services/app-development.png',
-        },
-        {
-            id: '03',
-            title: 'UI/UX Design',
-            slug: 'ui-ux-design',
-            outcome: 'Create intuitive user experiences that reduce friction and increase engagement.',
-            features: [
-                'User research backed decisions',
-                'Clear user flows & wireframes',
-                'Interactive prototypes before development',
-                'Usability-tested for real users'
-            ],
-            image: '/services/uiux-design.png',
-        },
-        {
-            id: '04',
-            title: 'Digital Marketing',
-            slug: 'digital-marketing',
-            outcome: 'Attract the right audience and convert them using data-driven marketing strategies.',
-            features: [
-                'Search visibility & paid growth strategies',
-                'Content that builds trust & authority',
-                'Social media growth frameworks',
-                'Performance tracking & analytics'
-            ],
-            image: '/services/digital-marketing.png',
-        },
-        {
-            id: '05',
-            title: 'AI Automation',
-            slug: 'ai-automation',
-            outcome: 'Save time, reduce costs, and eliminate manual processes using AI-powered automation.',
-            features: [
-                'Workflow & process automation',
-                'AI integrations & intelligent chatbots',
-                'Data insights for better decisions',
-                'Scalable automation systems'
-            ],
-            image: '/services/ai-automation.png',
-        },
-        {
-            id: '06',
-            title: 'Branding',
-            slug: 'branding',
-            outcome: 'Stand out in your market with a clear, consistent, and professional brand identity.',
-            features: [
-                'Brand strategy & positioning',
-                'Visual identity & logo systems',
-                'Brand guidelines for consistency',
-                'Marketing-ready assets'
-            ],
-            image: '/services/brand-identity.png',
-        },
-    ]
 
     const processSteps = [
         { number: '01', title: 'Discovery', description: 'We dive deep into your business goals, target audience, and project requirements to ensure absolute alignment.' },
@@ -243,7 +174,7 @@ export default function ServicesContent() {
                     </div>
 
                     <div className="flex flex-col w-full border-t border-border">
-                        {services.map((service, idx) => (
+                        {services.map((service: any, idx: number) => (
                             <motion.div
                                 key={idx}
                                 className="group border-b border-border relative transition-colors duration-500 hover:bg-accent/5"
@@ -257,7 +188,7 @@ export default function ServicesContent() {
                                     {/* Number and Title */}
                                     <div className="flex items-start gap-12 w-[40%] shrink-0">
                                         <span className={`text-text-secondary ${inter.variable} font-sans group-hover:text-accent transition-colors duration-500`}>
-                                            {service.id}
+                                            {service.serviceId}
                                         </span>
                                         <h3 className="font-display text-5xl group-hover:translate-x-4 transition-transform duration-500 ease-out">
                                             {service.title}
@@ -266,7 +197,7 @@ export default function ServicesContent() {
                                     {/* Description */}
                                     <div className="flex items-center justify-between w-[55%] gap-8">
                                         <p className={`text-lg text-text-secondary ${inter.variable} font-sans group-hover:text-text-primary transition-colors duration-500 max-w-xs`}>
-                                            {service.outcome}
+                                            {service.description}
                                         </p>
                                         {/* Hover Image Reveal */}
                                         <div className="absolute right-6 top-1/2 -translate-y-1/2 w-[220px] h-[150px] rounded-xl overflow-hidden opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 pointer-events-none shadow-2xl">
@@ -287,7 +218,7 @@ export default function ServicesContent() {
                                         transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                                     >
                                         <span className={`text-sm font-medium text-text-muted ${inter.variable} font-sans shrink-0 opacity-60`}>
-                                            {service.id}
+                                            {service.serviceId}
                                         </span>
                                         <h3 className="font-display text-[1.75rem] leading-tight text-text-primary">
                                             {service.title}
@@ -316,7 +247,7 @@ export default function ServicesContent() {
                                         viewport={{ once: true }}
                                         transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
                                     >
-                                        {service.outcome}
+                                        {service.description}
                                     </motion.p>
                                 </div>
 

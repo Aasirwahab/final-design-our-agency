@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import MagneticButton from '../ui/MagneticButton'
 import { inter } from '@/lib/fonts'
-import { portfolio } from '@/lib/data'
 
 /* ── Word-by-word reveal ────────────────────────────────── */
 function AnimatedHeading() {
@@ -85,11 +84,27 @@ function AnimatedHeading() {
     )
 }
 
+import { useQuery } from "convex/react"
+import { api } from "@/convex/_generated/api"
+
 /* ── Scrolling Project Montage ──────────────────────────── */
 function ProjectMontage() {
+    const projects = useQuery(api.projects.listPublished) || []
+
+    // Fallback images while loading or if no projects
+    const defaultImages = [
+        { src: "/projects/citylife-branding-new-converter.webp", title: "Citylife" },
+        { src: "/projects/Pappy's Arugambay.webp", title: "Pappy's Arugambay" },
+        { src: "/projects/Kitesurfing Kalpitiya.webp", title: "Kitesurfing Kalpitiya" },
+        { src: "/projects/Signature Aroma.webp", title: "Signature Aroma" }
+    ]
+
+    const baseImages = projects.length > 0
+        ? projects.filter((p: any) => p.image).map((p: any) => ({ src: p.image, title: p.title }))
+        : defaultImages
+
     // Duplicate for seamless loop
-    const images = portfolio.map(p => ({ src: p.image, title: p.title }))
-    const doubled = [...images, ...images]
+    const doubled = [...baseImages, ...baseImages]
 
     return (
         <div className="relative h-[500px] lg:h-[600px] w-full overflow-hidden rounded-lg">
@@ -100,10 +115,10 @@ function ProjectMontage() {
             {/* Scrolling column */}
             <motion.div
                 className="flex flex-col gap-4"
-                animate={{ y: [0, -(images.length * (280 + 16))] }}
+                animate={{ y: [0, -(baseImages.length * (280 + 16))] }}
                 transition={{
                     y: {
-                        duration: images.length * 4,
+                        duration: baseImages.length * 4,
                         repeat: Infinity,
                         ease: 'linear',
                     },

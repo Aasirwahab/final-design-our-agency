@@ -1,8 +1,21 @@
-import { companyInfo } from '@/lib/data'
+'use client'
+
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 import AnimatedCounter from '../ui/AnimatedCounter'
 import RevealOnScroll from '../ui/RevealOnScroll'
 
 export default function Stats() {
+    const companyInfo = useQuery(api.settings.getCompanyInfo)
+
+    if (companyInfo === undefined) {
+        return <section className="py-24 border-y border-border bg-bg-primary min-h-[300px]"></section>
+    }
+
+    if (!companyInfo || !companyInfo.stats || companyInfo.stats.length === 0) {
+        return null
+    }
+
     return (
         <section className="py-24 border-y border-border bg-bg-primary">
             <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12">

@@ -1,0 +1,29 @@
+﻿app/(public)/works/[slug]/page.tsx(16,44): error TS2339: Property 'list' does not exist on type '{ listPublished: FunctionReference<"query", "public", {}, { _id: Id<"projects">; _creationTime: number; description?: string | undefined; title: string; slug: string; url: string; tags: string[]; year: string; ... 4 more ...; order: number; }[], string | undefined>; ... 6 more ...; togglePublish: FunctionReference<....'.
+app/(public)/works/[slug]/page.tsx(23,36): error TS7006: Parameter 'p' implicitly has an 'any' type.
+app/(public)/works/[slug]/page.tsx(79,47): error TS7006: Parameter 'tag' implicitly has an 'any' type.
+app/(public)/works/page.tsx(16,44): error TS2339: Property 'list' does not exist on type '{ listPublished: FunctionReference<"query", "public", {}, { _id: Id<"projects">; _creationTime: number; description?: string | undefined; title: string; slug: string; url: string; tags: string[]; year: string; ... 4 more ...; order: number; }[], string | undefined>; ... 6 more ...; togglePublish: FunctionReference<....'.
+app/(public)/works/page.tsx(19,58): error TS7006: Parameter 'p' implicitly has an 'any' type.
+app/(public)/works/page.tsx(24,36): error TS7006: Parameter 'project' implicitly has an 'any' type.
+app/(public)/works/page.tsx(57,44): error TS7006: Parameter 'project' implicitly has an 'any' type.
+app/(public)/works/page.tsx(57,53): error TS7006: Parameter 'index' implicitly has an 'any' type.
+app/(public)/works/page.tsx(88,63): error TS7006: Parameter 'tag' implicitly has an 'any' type.
+components/sections/FeaturedWork.tsx(18,44): error TS2339: Property 'list' does not exist on type '{ listPublished: FunctionReference<"query", "public", {}, { _id: Id<"projects">; _creationTime: number; description?: string | undefined; title: string; slug: string; url: string; tags: string[]; year: string; ... 4 more ...; order: number; }[], string | undefined>; ... 6 more ...; togglePublish: FunctionReference<....'.
+components/sections/FeaturedWork.tsx(19,57): error TS7006: Parameter 'p' implicitly has an 'any' type.
+components/sections/FeaturedWork.tsx(171,59): error TS7006: Parameter 'tag' implicitly has an 'any' type.
+components/sections/FeaturedWork.tsx(245,68): error TS7006: Parameter '_' implicitly has an 'any' type.
+components/sections/FeaturedWork.tsx(245,71): error TS7006: Parameter 'i' implicitly has an 'any' type.
+components/sections/Hero.tsx(92,44): error TS2339: Property 'list' does not exist on type '{ listPublished: FunctionReference<"query", "public", {}, { _id: Id<"projects">; _creationTime: number; description?: string | undefined; title: string; slug: string; url: string; tags: string[]; year: string; ... 4 more ...; order: number; }[], string | undefined>; ... 6 more ...; togglePublish: FunctionReference<....'.
+components/sections/Hero.tsx(103,27): error TS7006: Parameter 'p' implicitly has an 'any' type.
+components/sections/Hero.tsx(103,45): error TS7006: Parameter 'p' implicitly has an 'any' type.
+components/sections/OurProcess.tsx(13,39): error TS2339: Property 'processSteps' does not exist on type '{ projects: { listPublished: FunctionReference<"query", "public", {}, { _id: Id<"projects">; _creationTime: number; description?: string | undefined; title: string; slug: string; url: string; tags: string[]; ... 5 more ...; order: number; }[], string | undefined>; ... 6 more ...; togglePublish: FunctionReference<......'.
+components/sections/OurProcess.tsx(63,48): error TS7006: Parameter 'step' implicitly has an 'any' type.
+components/sections/OurProcess.tsx(63,54): error TS7006: Parameter 'index' implicitly has an 'any' type.
+components/sections/services/ServicesContent.tsx(79,22): error TS2304: Cannot find name 'useQuery'.
+components/sections/services/ServicesContent.tsx(79,31): error TS2304: Cannot find name 'api'.
+components/sections/services/ServicesContent.tsx(171,40): error TS7006: Parameter 'service' implicitly has an 'any' type.
+components/sections/services/ServicesContent.tsx(171,49): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+components/sections/WhyUs.tsx(10,35): error TS2339: Property 'features' does not exist on type '{ projects: { listPublished: FunctionReference<"query", "public", {}, { _id: Id<"projects">; _creationTime: number; description?: string | undefined; title: string; slug: string; url: string; tags: string[]; ... 5 more ...; order: number; }[], string | undefined>; ... 6 more ...; togglePublish: FunctionReference<......'.
+components/sections/WhyUs.tsx(35,44): error TS7006: Parameter 'feature' implicitly has an 'any' type.
+components/sections/WhyUs.tsx(35,53): error TS7006: Parameter 'index' implicitly has an 'any' type.
+components/sections/WhyUs.tsx(60,36): error TS7006: Parameter 'feature' implicitly has an 'any' type.
+components/sections/WhyUs.tsx(60,45): error TS7006: Parameter 'index' implicitly has an 'any' type.

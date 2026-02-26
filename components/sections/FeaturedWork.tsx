@@ -4,7 +4,8 @@ import { useState, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { portfolio } from '@/lib/data'
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 import RevealOnScroll from '../ui/RevealOnScroll'
 import TiltCard from '../ui/TiltCard'
 
@@ -14,21 +15,33 @@ const swipePower = (offset: number, velocity: number) => {
 };
 
 export default function FeaturedWork() {
-    const featuredProjects = portfolio.slice(0, 4)
+    const projects = useQuery(api.projects.listPublished)
+    const featuredProjects = projects ? projects.filter((p: any) => p.isPublished).slice(0, 4) : []
+
     const [current, setCurrent] = useState(0)
     const [direction, setDirection] = useState(1)
 
     const prev = useCallback(() => {
+        if (!featuredProjects.length) return
         setDirection(-1)
         setCurrent((i) => (i - 1 + featuredProjects.length) % featuredProjects.length)
     }, [featuredProjects.length])
 
     const next = useCallback(() => {
+        if (!featuredProjects.length) return
         setDirection(1)
         setCurrent((i) => (i + 1) % featuredProjects.length)
     }, [featuredProjects.length])
 
     const project = featuredProjects[current]
+
+    if (projects === undefined) {
+        return <section className="py-24 md:py-32 bg-bg-primary min-h-screen"></section>
+    }
+
+    if (featuredProjects.length === 0) {
+        return null // Hide section if no published projects exist
+    }
 
     const slideVariants = {
         enter: (dir: number) => ({
@@ -155,7 +168,7 @@ export default function FeaturedWork() {
                                         exit={{ opacity: 0, y: -10 }}
                                         transition={{ duration: 0.4, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                                     >
-                                        {project.tags.map(tag => (
+                                        {project.tags.map((tag: any) => (
                                             <span key={tag} className="text-sm px-4 py-1.5 rounded-full border border-border text-text-muted bg-white">
                                                 {tag}
                                             </span>
@@ -229,7 +242,7 @@ export default function FeaturedWork() {
 
                                         {/* Dots */}
                                         <div className="flex items-center gap-3">
-                                            {featuredProjects.map((_, i) => (
+                                            {featuredProjects.map((_: any, i: number) => (
                                                 <button
                                                     key={i}
                                                     onClick={() => {

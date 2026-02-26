@@ -4,11 +4,17 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { services } from '@/lib/data'
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 import RevealOnScroll from '../ui/RevealOnScroll'
 
 export default function Services() {
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
+    const services = useQuery(api.services.list)
+
+    if (!services) {
+        return <div className="py-24 md:py-32 bg-bg-secondary min-h-[50vh]"></div> // Loading state
+    }
 
     return (
         <section className="py-24 md:py-32 bg-bg-secondary">
@@ -29,7 +35,7 @@ export default function Services() {
                         const isExpanded = expandedIndex === index
 
                         return (
-                            <RevealOnScroll key={service.id} delay={index * 0.05} y={20}>
+                            <RevealOnScroll key={service._id} delay={index * 0.05} y={20}>
                                 <div
                                     className={`group border-b border-border transition-all duration-300 ${isExpanded ? 'bg-bg-elevated/30 rounded-xl px-4 lg:px-6 -mx-4 lg:-mx-6' : ''}`}
                                     onMouseEnter={() => setExpandedIndex(index)}
@@ -42,7 +48,7 @@ export default function Services() {
                                         {...{ 'aria-expanded': isExpanded }}
                                     >
                                         <div className="flex items-center gap-4 lg:gap-16 min-w-0">
-                                            <span className="font-display text-lg lg:text-2xl text-text-muted opacity-50 shrink-0">{service.id}</span>
+                                            <span className="font-display text-lg lg:text-2xl text-text-muted opacity-50 shrink-0">{service.serviceId}</span>
                                             <h3 className={`font-display text-2xl lg:text-4xl transition-colors duration-300 truncate ${isExpanded ? 'text-accent' : 'text-text-primary'}`}>
                                                 {service.title}
                                             </h3>

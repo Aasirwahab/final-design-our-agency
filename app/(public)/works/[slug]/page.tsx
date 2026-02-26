@@ -1,22 +1,26 @@
-import { notFound } from 'next/navigation'
+'use client'
+
+import { notFound, useParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { portfolio } from '@/lib/data'
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 import MagneticButton from '@/components/ui/MagneticButton'
 
-interface PageProps {
-    params: Promise<{ slug: string }>
-}
+export default function CaseStudyPage() {
+    const params = useParams()
+    const slug = params.slug as string
 
-export function generateStaticParams() {
-    return portfolio.map((p) => ({
-        slug: p.slug,
-    }))
-}
+    // Fetch all projects and find the matching one
+    // In a production app with many projects, you might want a specific getBySlug query
+    const projects = useQuery(api.projects.listPublished)
 
-export default async function CaseStudyPage({ params }: PageProps) {
-    const { slug } = await params
-    const project = portfolio.find((p) => p.slug === slug)
+    // Handle loading state
+    if (projects === undefined) {
+        return <main className="min-h-screen bg-bg-primary pt-24 md:pt-32 pb-24"></main>
+    }
+
+    const project = projects.find((p: any) => p.slug === slug && p.isPublished)
 
     if (!project) {
         notFound()
@@ -44,7 +48,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                             {project.title}
                         </h1>
                         <p className="text-xl text-text-secondary leading-relaxed">
-                            A comprehensive deep dive into how we engineered a digital solution designed entirely around the client&apos;s strategic objectives and target audience.
+                            {project.description || "A comprehensive deep dive into how we engineered a digital solution designed entirely around the client's strategic objectives and target audience."}
                         </p>
                     </div>
                     {project.url !== "#" && (
@@ -72,7 +76,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                     <div className="col-span-2 md:col-span-2">
                         <p className="text-sm text-text-muted uppercase mb-2 font-medium">Technologies</p>
                         <div className="flex flex-wrap gap-2">
-                            {project.tags.map(tag => (
+                            {project.tags.map((tag: any) => (
                                 <span key={tag} className="text-xs px-3 py-1 rounded-full border border-border text-text-secondary">
                                     {tag}
                                 </span>

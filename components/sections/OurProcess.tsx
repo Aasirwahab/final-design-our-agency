@@ -1,6 +1,7 @@
 'use client'
 
-import { processSteps } from '@/lib/data'
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 import RevealOnScroll from '../ui/RevealOnScroll'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import { useRef } from 'react'
@@ -9,6 +10,7 @@ import { Search, PenTool, Code2, Rocket } from 'lucide-react'
 const icons = [Search, PenTool, Code2, Rocket]
 
 export default function OurProcess() {
+    const processSteps = useQuery(api.settings.listProcessSteps) || []
     const containerRef = useRef<HTMLDivElement>(null)
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -58,10 +60,10 @@ export default function OurProcess() {
                         </div>
 
                         <div className="space-y-12 md:space-y-24">
-                            {processSteps.map((step, index) => {
+                            {processSteps.map((step: any, index: number) => {
                                 const Icon = icons[index] || icons[0]
                                 return (
-                                    <div key={step.id} className="relative pl-14 md:pl-20 group">
+                                    <div key={step._id || step.id} className="relative pl-14 md:pl-20 group">
 
                                         {/* Timeline Node (Mobile & Desktop) */}
                                         <div className="absolute left-0 top-0 w-10 md:w-14 h-10 md:h-14 flex items-center justify-center">

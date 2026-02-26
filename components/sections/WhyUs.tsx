@@ -1,11 +1,14 @@
 'use client'
 
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 import { motion } from 'framer-motion'
 import RevealOnScroll from '../ui/RevealOnScroll'
 import MagneticButton from '../ui/MagneticButton'
-import { features } from '@/lib/data'
 
 export default function WhyUs() {
+    const features = useQuery(api.settings.listFeatures) || []
+
     return (
         <section className="py-24 md:py-32 bg-bg-primary overflow-hidden border-y border-border">
             <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12">
@@ -29,8 +32,8 @@ export default function WhyUs() {
                     {/* ── DESKTOP: Feature List ── */}
                     <div className="hidden lg:block lg:col-span-7">
                         <div className="flex flex-col gap-12 sm:gap-16">
-                            {features.map((feature, index) => (
-                                <RevealOnScroll key={feature.title} delay={0.1 + (index * 0.1)}>
+                            {features.map((feature: any, index: number) => (
+                                <RevealOnScroll key={feature._id} delay={0.1 + (index * 0.1)}>
                                     <div className="flex flex-col sm:flex-row gap-6 relative group">
                                         <div className="shrink-0 mt-2">
                                             <div className="w-12 h-12 rounded-full border border-border-light flex items-center justify-center text-text-muted group-hover:border-accent group-hover:text-accent group-hover:bg-accent/5 transition-all duration-500">
@@ -54,9 +57,9 @@ export default function WhyUs() {
 
                 {/* ── MOBILE: Animated Feature Cards ── */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 lg:hidden">
-                    {features.map((feature, index) => (
+                    {features.map((feature: any, index: number) => (
                         <motion.div
-                            key={feature.title}
+                            key={feature._id}
                             className="relative flex flex-col gap-4 rounded-2xl border border-border bg-bg-elevated/30 p-5 overflow-hidden"
                             initial={{ opacity: 0, y: 50, scale: 0.96 }}
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}

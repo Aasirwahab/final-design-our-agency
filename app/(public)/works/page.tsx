@@ -4,7 +4,8 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { portfolio } from '@/lib/data'
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 import RevealOnScroll from '@/components/ui/RevealOnScroll'
 import TiltCard from '@/components/ui/TiltCard'
 
@@ -12,10 +13,19 @@ const categories = ['All', 'Web & Branding', 'Tourism', 'E-commerce', 'SaaS']
 
 export default function WorksPage() {
     const [selectedCategory, setSelectedCategory] = useState('All')
+    const projects = useQuery(api.projects.listPublished)
 
+    // Default to empty array if loading
+    const publishedProjects = projects ? projects.filter((p: any) => p.isPublished) : []
+
+    // Provide a default empty array during loading
     const filteredProjects = selectedCategory === 'All'
-        ? portfolio
-        : portfolio.filter(project => project.category === selectedCategory)
+        ? publishedProjects
+        : publishedProjects.filter((project: any) => project.category === selectedCategory)
+
+    if (projects === undefined) {
+        return <div className="pt-32 pb-24 px-6 md:px-12 max-w-[1400px] mx-auto min-h-screen"></div>
+    }
 
     return (
         <div className="pt-24 md:pt-28 lg:pt-32 pb-24 px-6 md:px-12 max-w-[1400px] mx-auto min-h-screen">
@@ -44,9 +54,9 @@ export default function WorksPage() {
 
             <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                 <AnimatePresence mode="popLayout">
-                    {filteredProjects.map((project, index) => (
+                    {filteredProjects.map((project: any, index: number) => (
                         <motion.div
-                            key={project.id}
+                            key={project._id}
                             layout
                             initial={{ opacity: 0, scale: 0.95, y: 30 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -75,7 +85,7 @@ export default function WorksPage() {
                                             {project.title}
                                         </h2>
                                         <div className="flex items-center gap-2 overflow-hidden">
-                                            {project.tags.map(tag => (
+                                            {project.tags.map((tag: any) => (
                                                 <span
                                                     key={tag}
                                                     className="shrink-0 text-[10px] md:text-xs font-medium px-2.5 py-1 rounded-full border border-border/60 text-text-secondary bg-bg-elevated/60 whitespace-nowrap"

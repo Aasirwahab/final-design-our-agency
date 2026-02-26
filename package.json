@@ -9,13 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.38.2",
+    "convex": "^1.32.0",
     "framer-motion": "^12.34.3",
     "lenis": "^1.3.17",
     "lucide-react": "^0.575.0",
     "next": "^16.1.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "sonner": "^2.0.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.0",

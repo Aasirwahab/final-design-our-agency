@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'framer-motion', 'react-icons'],
+  },
 }
 
 export default nextConfig

@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useCallback, useRef } from 'react'
+import { createContext, useContext, useState, useCallback, useRef, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -22,7 +22,9 @@ export default function PageTransitionProvider({ children }: { children: React.R
     const [isTransitioning, setIsTransitioning] = useState(false)
     const [heading, setHeading] = useState('')
     const [showOverlay, setShowOverlay] = useState(false)
+    const [sourcePathname, setSourcePathname] = useState<string | null>(null)
     const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+    const fallbackTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
     const startTransition = useCallback((path: string, newHeading: string) => {
         // Don't transition if already on the same page
@@ -33,21 +35,46 @@ export default function PageTransitionProvider({ children }: { children: React.R
         setHeading(newHeading)
         setIsTransitioning(true)
         setShowOverlay(true)
+        setSourcePathname(pathname)
 
         // Wait for the enter animation + progress line, then navigate
         timeoutRef.current = setTimeout(() => {
             router.push(path)
 
-            // After navigation, wait a beat then slide overlay away
-            setTimeout(() => {
+            // Fallback timeout in case navigation fails or takes extremely long
+            fallbackTimeoutRef.current = setTimeout(() => {
                 setShowOverlay(false)
+                setSourcePathname(null)
+                setTimeout(() => setIsTransitioning(false), 1000)
+            }, 60000)
+        }, 1200)
+    }, [pathname, isTransitioning, router])
+
+    useEffect(() => {
+        if (isTransitioning && sourcePathname && pathname !== sourcePathname) {
+            if (fallbackTimeoutRef.current) clearTimeout(fallbackTimeoutRef.current)
+
+            // Give React a moment to render the new page
+            const timer = setTimeout(() => {
+                setShowOverlay(false)
+                setSourcePathname(null)
+
                 // Reset state after exit animation completes
                 setTimeout(() => {
                     setIsTransitioning(false)
                 }, 1000)
-            }, 400)
-        }, 1200)
-    }, [pathname, isTransitioning, router])
+            }, 300)
+
+            return () => clearTimeout(timer)
+        }
+    }, [pathname, isTransitioning, sourcePathname])
+
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) clearTimeout(timeoutRef.current)
+            if (fallbackTimeoutRef.current) clearTimeout(fallbackTimeoutRef.current)
+        }
+    }, [])
 
     // Split heading into characters for stagger animation
     const headingChars = heading.split('')

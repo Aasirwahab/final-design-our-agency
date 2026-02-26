@@ -31,6 +31,7 @@
 
 .scrollbar-hide {
   -ms-overflow-style: none;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   scrollbar-width: none;
   /* stylelint-disable-line property-no-unknown */
 }

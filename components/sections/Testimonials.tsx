@@ -2,10 +2,14 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { testimonials } from '@/lib/data'
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 import RevealOnScroll from '../ui/RevealOnScroll'
 
 export default function Testimonials() {
+    const fetchedTestimonials = useQuery(api.testimonials.list)
+    const testimonials = fetchedTestimonials || []
+
     const [currentIndex, setCurrentIndex] = useState(0)
     const [isHovered, setIsHovered] = useState(false)
     const [direction, setDirection] = useState(1) // 1 = forward, -1 = backward
@@ -16,20 +20,22 @@ export default function Testimonials() {
     }, [currentIndex])
 
     const prev = useCallback(() => {
+        if (!testimonials.length) return
         setDirection(-1)
         setCurrentIndex((i) => (i - 1 + testimonials.length) % testimonials.length)
-    }, [])
+    }, [testimonials.length])
 
     const next = useCallback(() => {
+        if (!testimonials.length) return
         setDirection(1)
         setCurrentIndex((i) => (i + 1) % testimonials.length)
-    }, [])
+    }, [testimonials.length])
 
     useEffect(() => {
-        if (isHovered) return
+        if (isHovered || testimonials.length === 0) return
         const timer = setInterval(next, 6000)
         return () => clearInterval(timer)
-    }, [isHovered, next])
+    }, [isHovered, next, testimonials.length])
 
     const slideVariants = {
         enter: (dir: number) => ({
@@ -50,6 +56,14 @@ export default function Testimonials() {
             scale: 0.96,
             filter: 'blur(4px)',
         }),
+    }
+
+    if (fetchedTestimonials === undefined) {
+        return <section className="py-32 md:py-48 bg-bg-secondary overflow-hidden min-h-[600px]"></section>
+    }
+
+    if (testimonials.length === 0) {
+        return null
     }
 
     return (
@@ -75,7 +89,7 @@ export default function Testimonials() {
                                     className="flex items-center justify-center font-display text-2xl md:text-3xl lg:text-4xl leading-snug text-text-primary"
                                 >
                                     <span className="relative">
-                                        &ldquo;{testimonials[currentIndex].quote}&rdquo;
+                                        &ldquo;{testimonials[currentIndex]?.quote || "..."}&rdquo;
                                     </span>
                                 </motion.div>
                             </AnimatePresence>
@@ -100,14 +114,14 @@ export default function Testimonials() {
                                 </div>
                                 <div className="w-16 h-16 rounded-full bg-bg-elevated mb-4 overflow-hidden relative flex items-center justify-center border border-border">
                                     <span className="text-text-muted font-display text-xl">
-                                        {testimonials[currentIndex].author.charAt(0)}
+                                        {testimonials[currentIndex]?.author?.charAt(0) || "U"}
                                     </span>
                                 </div>
                                 <h4 className="text-text-primary font-medium text-lg mb-1">
-                                    {testimonials[currentIndex].author}
+                                    {testimonials[currentIndex]?.author || "Unknown"}
                                 </h4>
                                 <p className="text-text-muted text-sm delay-100">
-                                    {testimonials[currentIndex].role}, {testimonials[currentIndex].company}
+                                    {testimonials[currentIndex]?.role || "Client"}, {testimonials[currentIndex]?.company || "Company"}
                                 </p>
                             </motion.div>
                         </AnimatePresence>

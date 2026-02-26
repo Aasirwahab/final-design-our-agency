@@ -1,8 +1,13 @@
+'use client'
+
 import RevealOnScroll from '../ui/RevealOnScroll'
 import MagneticButton from '../ui/MagneticButton'
-import { companyInfo } from '@/lib/data'
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 
 export default function CTA() {
+    const companyInfo = useQuery(api.settings.getCompanyInfo)
+
     return (
         <section className="relative py-32 md:py-40 overflow-hidden">
             {/* Subtle atmosphere */}
@@ -31,15 +36,23 @@ export default function CTA() {
                         </p>
                     </div>
 
-                    <div className="flex items-center gap-6 text-text-muted text-sm">
-                        <a href={`mailto:${companyInfo.email}`} className="hover:text-text-primary transition-colors">
-                            {companyInfo.email}
-                        </a>
-                        <span className="w-1 h-1 rounded-full bg-border" />
-                        <a href={`tel:${companyInfo.phone.replace(/\s+/g, '')}`} className="hover:text-text-primary transition-colors">
-                            {companyInfo.phone}
-                        </a>
-                    </div>
+                    {companyInfo && (companyInfo.email || companyInfo.phone) && (
+                        <div className="flex items-center gap-6 text-text-muted text-sm">
+                            {companyInfo.email && (
+                                <a href={`mailto:${companyInfo.email}`} className="hover:text-text-primary transition-colors">
+                                    {companyInfo.email}
+                                </a>
+                            )}
+                            {companyInfo.email && companyInfo.phone && (
+                                <span className="w-1 h-1 rounded-full bg-border" />
+                            )}
+                            {companyInfo.phone && (
+                                <a href={`tel:${companyInfo.phone.replace(/\s+/g, '')}`} className="hover:text-text-primary transition-colors">
+                                    {companyInfo.phone}
+                                </a>
+                            )}
+                        </div>
+                    )}
                 </RevealOnScroll>
             </div>
         </section>
