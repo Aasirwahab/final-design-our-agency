@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import MagneticButton from '../ui/MagneticButton'
 import { inter } from '@/lib/fonts'
+import HeroGlobe from '../ui/HeroGlobe'
 
 /* ── Word-by-word reveal ────────────────────────────────── */
 function AnimatedHeading() {
@@ -84,66 +85,7 @@ function AnimatedHeading() {
     )
 }
 
-import { useQuery } from "convex/react"
-import { api } from "@/convex/_generated/api"
 
-/* ── Scrolling Project Montage ──────────────────────────── */
-function ProjectMontage() {
-    const projects = useQuery(api.projects.listPublished) || []
-
-    // Fallback images while loading or if no projects
-    const defaultImages = [
-        { src: "/projects/citylife-branding-new-converter.webp", title: "Citylife" },
-        { src: "/projects/Pappy's Arugambay.webp", title: "Pappy's Arugambay" },
-        { src: "/projects/Kitesurfing Kalpitiya.webp", title: "Kitesurfing Kalpitiya" },
-        { src: "/projects/Signature Aroma.webp", title: "Signature Aroma" }
-    ]
-
-    const baseImages = projects.length > 0
-        ? projects.filter((p: any) => p.image).map((p: any) => ({ src: p.image, title: p.title }))
-        : defaultImages
-
-    // Duplicate for seamless loop
-    const doubled = [...baseImages, ...baseImages]
-
-    return (
-        <div className="relative h-[500px] lg:h-[600px] w-full overflow-hidden rounded-lg">
-            {/* Fade edges */}
-            <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-bg-primary to-transparent z-10 pointer-events-none" />
-            <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-bg-primary to-transparent z-10 pointer-events-none" />
-
-            {/* Scrolling column */}
-            <motion.div
-                className="flex flex-col gap-4"
-                animate={{ y: [0, -(baseImages.length * (280 + 16))] }}
-                transition={{
-                    y: {
-                        duration: baseImages.length * 4,
-                        repeat: Infinity,
-                        ease: 'linear',
-                    },
-                }}
-            >
-                {doubled.map((img, i) => (
-                    <div
-                        key={i}
-                        className="relative w-full h-[280px] rounded-lg overflow-hidden shrink-0"
-                    >
-                        <Image
-                            src={img.src}
-                            alt={img.title}
-                            fill
-                            priority={i < 4}
-                            className="object-cover"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                        />
-                        <div className="absolute inset-0 bg-bg-primary/10" />
-                    </div>
-                ))}
-            </motion.div>
-        </div>
-    )
-}
 
 /* ── Hero Section ───────────────────────────────────────── */
 export default function Hero() {
@@ -238,14 +180,14 @@ export default function Hero() {
                     </motion.div>
                 </div>
 
-                {/* Right — Scrolling project montage */}
+                {/* Right — 3D Globe */}
                 <motion.div
-                    className="hidden lg:block lg:col-span-5 pl-8"
+                    className="hidden lg:flex lg:col-span-5 relative items-center justify-center min-h-[500px]"
                     initial={{ opacity: 0, x: 40 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 >
-                    <ProjectMontage />
+                    <HeroGlobe />
                 </motion.div>
 
             </div>

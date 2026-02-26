@@ -21,14 +21,14 @@ function StatCard({
 }: {
     label: string;
     value: number | string;
-    icon: React.ElementType;
+    icon: any;
     href: string;
     color: string;
 }) {
     return (
         <Link
             href={href}
-            className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0a0a0a] p-6 hover:border-white/[0.1] transition-all duration-300"
+            className="group relative overflow-hidden rounded-2xl border border-white/6 bg-[#0a0a0a] p-6 hover:border-white/10 transition-all duration-300"
         >
             <div className="flex items-start justify-between">
                 <div>
@@ -76,7 +76,7 @@ export default function AdminDashboard() {
                     {[...Array(4)].map((_, i) => (
                         <div
                             key={i}
-                            className="h-[140px] rounded-2xl bg-[#0a0a0a] border border-white/[0.06] animate-pulse"
+                            className="h-[140px] rounded-2xl bg-[#0a0a0a] border border-white/6 animate-pulse"
                         />
                     ))}
                 </div>
@@ -115,7 +115,7 @@ export default function AdminDashboard() {
 
             {/* Quick Info */}
             {companyInfo && (
-                <div className="mt-8 rounded-2xl border border-white/[0.06] bg-[#0a0a0a] p-6">
+                <div className="mt-8 rounded-2xl border border-white/6 bg-[#0a0a0a] p-6">
                     <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                         <Eye size={18} className="text-white/40" />
                         Company Overview
@@ -136,7 +136,7 @@ export default function AdminDashboard() {
 
             {/* Recent Projects */}
             {projects && projects.length > 0 && (
-                <div className="mt-8 rounded-2xl border border-white/[0.06] bg-[#0a0a0a] p-6">
+                <div className="mt-8 rounded-2xl border border-white/6 bg-[#0a0a0a] p-6">
                     <div className="flex items-center justify-between mb-4">
                         <h2 className="text-lg font-semibold text-white">
                             Recent Projects
@@ -152,10 +152,10 @@ export default function AdminDashboard() {
                         {projects.slice(0, 5).map((project) => (
                             <div
                                 key={project._id}
-                                className="flex items-center justify-between py-3 border-b border-white/[0.04] last:border-0"
+                                className="flex items-center justify-between py-3 border-b border-white/4 last:border-0"
                             >
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-lg bg-white/[0.04] overflow-hidden">
+                                    <div className="w-10 h-10 rounded-lg bg-white/4 overflow-hidden">
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img
                                             src={project.image}

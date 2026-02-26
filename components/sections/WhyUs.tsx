@@ -76,7 +76,7 @@ export default function WhyUs() {
                             />
 
                             {/* Shimmer gradient background */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                            <div className="absolute inset-0 bg-linear-to-br from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
                             {/* Glowing Number Badge */}
                             <motion.div
@@ -120,7 +120,7 @@ export default function WhyUs() {
                 <RevealOnScroll delay={0.2} className="mt-16 md:mt-20 pt-12 border-t border-border/50">
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-8 bg-bg-elevated/30 rounded-2xl p-8 md:p-12 border border-border/50 shadow-sm relative overflow-hidden">
                         {/* Decorative glow */}
-                        <div className="absolute top-0 right-0 w-[50%] h-[100%] bg-accent/5 blur-[80px] rounded-full pointer-events-none" />
+                        <div className="absolute top-0 right-0 w-[50%] h-full bg-accent/5 blur-[80px] rounded-full pointer-events-none" />
 
                         <div className="relative z-10 text-center sm:text-left">
                             <h3 className="font-display text-2xl md:text-3xl lg:text-4xl text-text-primary mb-3">Ready to transform your digital presence?</h3>

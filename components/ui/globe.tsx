@@ -152,8 +152,8 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
     globeRef.current
       .hexPolygonsData(countries.features)
-      .hexPolygonResolution(3)
-      .hexPolygonMargin(0.7)
+      .hexPolygonResolution(4)
+      .hexPolygonMargin(0.5)
       .showAtmosphere(defaultProps.showAtmosphere)
       .atmosphereColor(defaultProps.atmosphereColor)
       .atmosphereAltitude(defaultProps.atmosphereAltitude)
@@ -167,10 +167,10 @@ export function Globe({ globeConfig, data }: WorldProps) {
       .arcEndLng((d) => (d as { endLng: number }).endLng * 1)
       .arcColor((e: any) => (e as { color: string }).color)
       .arcAltitude((e) => (e as { arcAlt: number }).arcAlt * 1)
-      .arcStroke(() => [0.32, 0.28, 0.3][Math.round(Math.random() * 2)])
+      .arcStroke(() => 1.0)
       .arcDashLength(defaultProps.arcLength)
-      .arcDashInitialGap((e) => (e as { order: number }).order * 0.2)
-      .arcDashGap(1)
+      .arcDashInitialGap((e) => (e as { order: number }).order * 0.1)
+      .arcDashGap(0.1)
       .arcDashAnimateTime(() => defaultProps.arcTime);
 
     globeRef.current
@@ -180,11 +180,52 @@ export function Globe({ globeConfig, data }: WorldProps) {
       .pointAltitude(0.0)
       .pointRadius(2);
 
+    // Add CSS 2D Labels
+    const labels = data.map((d) => {
+      let text = "";
+      if (d.order === 1 && d.endLat > 40) text = "New York";
+      else if (d.order === 1) text = "Tokyo";
+      if (d.order === 2 && d.endLat > 0) text = "Singapore";
+      else if (d.order === 2) text = "Sydney";
+      if (d.order === 3 && d.endLat > 0) text = "Hong Kong";
+      else if (d.order === 3) text = "Rio de Janeiro";
+      if (d.order === 4) text = "Colombo";
+      if (d.order === 5 && d.endLat < 30) text = "Dubai";
+      else if (d.order === 5) text = "Paris";
+      if (d.order === 6 && d.endLat > 30) text = "San Francisco";
+      else if (d.order === 6) text = "Mumbai";
+      if (d.order === 7) text = "Cape Town";
+
+      return {
+        lat: d.endLat,
+        lng: d.endLng,
+        text: text,
+        color: d.color
+      }
+    });
+    // Add London Hub Label
+    labels.push({ lat: 51.5074, lng: -0.1278, text: "LONDON", color: "#10B981" });
+
+    // Deduplicate labels
+    const uniqueLabels = labels.filter((v, i, a) => a.findIndex(t => (t.lat === v.lat && t.lng === v.lng)) === i);
+
+    globeRef.current
+      .labelsData(uniqueLabels)
+      .labelLat(d => (d as any).lat)
+      .labelLng(d => (d as any).lng)
+      .labelText(d => (d as any).text)
+      .labelSize(1.5)
+      .labelDotRadius(0.5)
+      .labelColor(d => (d as any).color)
+      .labelResolution(2)
+      .labelAltitude(0.01)
+      .labelIncludeDot(true);
+
     globeRef.current
       .ringsData([])
-      .ringColor(() => defaultProps.polygonColor)
-      .ringMaxRadius(defaultProps.maxRings)
-      .ringPropagationSpeed(RING_PROPAGATION_SPEED)
+      .ringColor((e: any) => (e as { color: string }).color)
+      .ringMaxRadius(defaultProps.maxRings * 1.5) // Increased size for visibility
+      .ringPropagationSpeed(RING_PROPAGATION_SPEED * 0.8) // Slower, more deliberate pulse
       .ringRepeatPeriod(
         (defaultProps.arcTime * defaultProps.arcLength) / defaultProps.rings,
       );
@@ -209,6 +250,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
     const interval = setInterval(() => {
       if (!globeRef.current) return;
 
+      // More rings active at once for a busier, live dashboard feel
       const newNumbersOfRings = genRandomNumbers(
         0,
         data.length,
@@ -251,7 +293,7 @@ export function World(props: WorldProps) {
   const scene = new Scene();
   scene.fog = new Fog(0xffffff, 400, 2000);
   return (
-    <Canvas scene={scene} camera={new PerspectiveCamera(50, aspect, 180, 1800)}>
+    <Canvas scene={scene} camera={{ fov: 50, near: 180, far: 1800, position: [0, 0, cameraZ] }}>
       <WebGLRendererConfig />
       <ambientLight color={globeConfig.ambientLight} intensity={0.6} />
       <directionalLight

@@ -97,7 +97,7 @@ export default function OurProcess() {
                                                 </p>
 
                                                 {/* Bottom Decoration */}
-                                                <div className="mt-6 md:mt-8 h-[1px] w-12 bg-border group-hover:w-full group-hover:bg-accent/40 transition-all duration-700" />
+                                                <div className="mt-6 md:mt-8 h-px w-12 bg-border group-hover:w-full group-hover:bg-accent/40 transition-all duration-700" />
                                             </div>
                                         </RevealOnScroll>
                                     </div>
