@@ -15,15 +15,6 @@ const locations = [
         tzLabel: 'GMT',
         coords: '51.5074° N, 0.1278° W',
         image: '/uk-headoffice.webp',
-    },
-    {
-        id: 'sl',
-        country: 'Sri Lanka',
-        city: 'Colombo',
-        timezone: 'Asia/Colombo',
-        tzLabel: 'IST',
-        coords: '6.9271° N, 79.8612° E',
-        image: '/Zamir Founder.webp',
     }
 ]
 
@@ -74,16 +65,18 @@ function LocationCard({ loc, index }: { loc: typeof locations[0]; index: number 
                 onMouseMove={handleMouseMove}
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
-                className={`group relative w-full rounded-2xl overflow-hidden bg-bg-dark border border-border/30 cursor-pointer ${index === 0 ? 'aspect-[4/3] md:aspect-[3/4]' : 'aspect-[4/3]'
-                    }`}
+                className="group relative w-full rounded-2xl overflow-hidden bg-bg-dark border border-border/30 cursor-pointer aspect-4/3 md:aspect-3/4 lg:aspect-4/3"
             >
                 {/* Background Image */}
                 <Image
                     src={loc.image}
                     alt={`${loc.city}, ${loc.country}`}
                     fill
-                    className="object-cover opacity-25 filter grayscale group-hover:opacity-50 group-hover:grayscale-[50%] group-hover:scale-105 transition-all duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                    className="object-cover w-full h-full transition-all duration-700 group-hover:scale-110 group-hover:grayscale-50"
                 />
+
+                {/* New gradient overlay for v4 */}
+                <div className="absolute inset-0 bg-linear-to-t from-bg-dark/40 to-transparent pointer-events-none" />
 
                 {/* Cursor-following spotlight — inline style required for runtime mouse coordinates */}
                 <div
@@ -97,7 +90,7 @@ function LocationCard({ loc, index }: { loc: typeof locations[0]; index: number 
                 />
 
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/60 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-6 lg:p-8" />
 
                 {/* Coordinates — top right */}
                 <div className={`absolute top-6 right-6 md:top-8 md:right-8 ${inter.variable} font-sans`}>

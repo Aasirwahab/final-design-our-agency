@@ -236,7 +236,7 @@ function InnerServicesContent({ services }: { services: any }) {
                                     >
                                         <Image src={service.image} alt={service.title} fill className="object-cover" />
                                         {/* Subtle gradient overlay */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-bg-dark/40 to-transparent pointer-events-none" />
+                                        <div className="absolute inset-0 bg-linear-to-t from-bg-dark/40 to-transparent pointer-events-none" />
                                     </motion.div>
 
                                     {/* Description */}
@@ -273,11 +273,11 @@ function InnerServicesContent({ services }: { services: any }) {
 
                     <div className="relative max-w-4xl mx-auto" ref={timelineRef}>
                         {/* Vertical Line */}
-                        <div className="absolute left-8 md:left-[50%] top-0 bottom-0 w-[1px] bg-border -translate-x-[50%]" />
+                        <div className="absolute left-8 md:left-[50%] top-0 bottom-0 w-px bg-border -translate-x-[50%]" />
 
                         {/* Animated Progress Line */}
                         <motion.div
-                            className="absolute left-8 md:left-[50%] top-0 bottom-0 w-[1px] bg-accent -translate-x-[50%] origin-top"
+                            className="absolute left-8 md:left-[50%] top-0 bottom-0 w-px bg-accent -translate-x-[50%] origin-top"
                             style={{ scaleY: smoothTimelineProgress }}
                         />
 
@@ -295,83 +295,16 @@ function InnerServicesContent({ services }: { services: any }) {
                 </div>
             </section>
 
-            {/* SELECTED WORKS */}
-            <section className="relative w-full py-24 md:py-32 overflow-hidden">
-                <div className="max-w-[1400px] mx-auto w-full px-4 md:px-6 lg:px-8 mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-end gap-8">
-                    <RevealOnScroll>
-                        <h2 className="font-display text-4xl md:text-5xl lg:text-6xl mb-6">Selected Proofs</h2>
-                        <p className={`text-text-secondary text-lg max-w-xl ${inter.variable} font-sans`}>
-                            Discover how our specialized capabilities have fundamentally elevated businesses and brands worldwide.
-                        </p>
-                    </RevealOnScroll>
 
-                    <RevealOnScroll delay={0.2}>
-                        <Link href="/works">
-                            <MagneticButton>
-                                View All Works
-                            </MagneticButton>
-                        </Link>
-                    </RevealOnScroll>
-                </div>
-
-                {/* Aesthetic Editorial Masonry Layout */}
-                <div className="max-w-[1400px] mx-auto w-full px-4 md:px-6 lg:px-8">
-                    {/* Hero Project (Full Width) */}
-                    <RevealOnScroll>
-                        <div className="group cursor-pointer relative w-full aspect-[16/9] md:aspect-[21/9] rounded-[2rem] overflow-hidden shadow-2xl mb-8 md:mb-12 lg:mb-16">
-                            <Image src="/surfying-aru.webp" alt="Pappy's Arugambay" fill className="object-cover transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" />
-                            {/* Gradient Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-bg-dark/90 via-bg-dark/30 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-
-                            {/* Project Details */}
-                            <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full flex flex-col md:flex-row md:items-end justify-between gap-6 pointer-events-none">
-                                <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <span className="w-2 h-2 rounded-full bg-accent" />
-                                        <p className={`text-accent font-medium uppercase tracking-widest text-sm ${inter.variable} font-sans`}>Tourism Website</p>
-                                    </div>
-                                    <h3 className="font-display text-4xl md:text-6xl lg:text-7xl text-white mb-2 group-hover:text-accent transition-colors duration-500">Pappy's Arugambay</h3>
-                                </div>
-                                <div className="hidden md:flex w-16 h-16 rounded-full bg-accent text-bg-primary items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 -rotate-45 group-hover:rotate-0">
-                                    <ArrowRight className="w-8 h-8" />
-                                </div>
-                            </div>
-                        </div>
-                    </RevealOnScroll>
-
-                    {/* Secondary Projects Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
-                        {[
-                            { title: 'Signature Aroma', cat: 'E-commerce Store', img: '/eccomerce.webp' },
-                            { title: 'WavePOS Cloud', cat: 'SaaS Platform', img: '/wave_pos.webp', offset: true },
-                            { title: 'Craft Clothing', cat: 'E-commerce Platform', img: '/jersey.webp' },
-                        ].map((work, idx) => (
-                            <RevealOnScroll key={idx} delay={idx * 0.1}>
-                                <div className={`group cursor-pointer flex flex-col ${work.offset ? 'md:mt-24' : ''}`}>
-                                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 shadow-xl">
-                                        <Image src={work.img} alt={work.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                                        <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 mix-blend-multiply transition-opacity duration-500 pointer-events-none" />
-                                    </div>
-                                    <p className={`text-accent font-medium mb-2 uppercase tracking-widest text-xs ${inter.variable} font-sans`}>{work.cat}</p>
-                                    <h3 className="font-display text-3xl md:text-4xl text-text-primary group-hover:text-accent transition-colors duration-300 flex items-center gap-4">
-                                        {work.title}
-                                        <ArrowRight className="w-6 h-6 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                                    </h3>
-                                </div>
-                            </RevealOnScroll>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
             {/* FAQS SECTION */}
-            <section className="relative w-full py-24 md:py-32 bg-bg-dark border-y border-border">
+            <section className="relative w-full py-24 md:py-32 bg-white border-y border-border">
                 <div className="max-w-[1400px] mx-auto w-full px-4 md:px-6 lg:px-8 flex flex-col lg:flex-row gap-16 lg:gap-24">
 
                     <div className="w-full lg:w-1/3">
                         <RevealOnScroll>
-                            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl mb-6 text-white">Insights & Clarity</h2>
-                            <p className={`text-white/70 text-lg ${inter.variable} font-sans`}>
+                            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl mb-6 text-text-primary">Insights & Clarity</h2>
+                            <p className={`text-text-secondary text-lg ${inter.variable} font-sans`}>
                                 We believe in total transparency. Here are answers to questions our partners frequently ask before embarking on a transformative journey with us.
                             </p>
                         </RevealOnScroll>
@@ -391,10 +324,10 @@ function InnerServicesContent({ services }: { services: any }) {
                                         onClick={() => setIsOpen(!isOpen)}
                                         className="w-full py-8 flex items-center justify-between text-left group"
                                     >
-                                        <h3 className="font-display text-white text-2xl md:text-3xl max-w-xl group-hover:text-accent transition-colors duration-300">
+                                        <h3 className="font-display text-text-primary text-2xl md:text-3xl max-w-xl group-hover:text-accent transition-colors duration-300">
                                             {faq.q}
                                         </h3>
-                                        <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center shrink-0 group-hover:block-accent group-hover:border-accent transition-all duration-300 text-white group-hover:text-accent relative overflow-hidden">
+                                        <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center shrink-0 group-hover:block-accent group-hover:border-accent transition-all duration-300 text-text-primary group-hover:text-accent relative overflow-hidden">
                                             <Plus className={`w-5 h-5 absolute transition-transform duration-500 ${isOpen ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'}`} />
                                             <Minus className={`w-5 h-5 absolute transition-transform duration-500 ${isOpen ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0'}`} />
                                         </div>
@@ -408,7 +341,7 @@ function InnerServicesContent({ services }: { services: any }) {
                                                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                                                 className="overflow-hidden"
                                             >
-                                                <p className={`pb-8 text-white/70 text-lg leading-relaxed max-w-3xl ${inter.variable} font-sans`}>
+                                                <p className={`pb-8 text-text-secondary text-lg leading-relaxed max-w-3xl ${inter.variable} font-sans`}>
                                                     {faq.a}
                                                 </p>
                                             </motion.div>
@@ -424,7 +357,7 @@ function InnerServicesContent({ services }: { services: any }) {
 
             {/* CALL TO ACTION */}
             < section className="relative w-full py-32 md:py-48 bg-accent text-bg-primary overflow-hidden" >
-                <div className="absolute top-0 right-0 w-full h-[1px] bg-bg-primary/20" />
+                <div className="absolute top-0 right-0 w-full h-px bg-bg-primary/20" />
 
                 {/* Background decorative typography */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none opacity-10">
@@ -448,7 +381,7 @@ function InnerServicesContent({ services }: { services: any }) {
                     <RevealOnScroll delay={0.4}>
                         <Link href="/contact">
                             <button className="group relative inline-flex items-center justify-center px-12 py-6 rounded-full bg-bg-primary text-text-primary overflow-hidden transition-transform duration-500 hover:scale-105 active:scale-95 shadow-2xl hover:shadow-black/20">
-                                <div className="absolute inset-0 bg-text-primary translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                                <div className="absolute inset-0 bg-text-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
                                 <span className={`relative z-10 flex items-center gap-3 text-lg font-medium group-hover:text-bg-primary transition-colors duration-500 ${inter.variable} font-sans`}>
                                     Initialize Project
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
