@@ -4,10 +4,6 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import MagneticButton from '../ui/MagneticButton'
 import { inter } from '@/lib/fonts'
-import { portfolio } from '@/lib/data'
-import dynamic from 'next/dynamic'
-import { useQuery } from "convex/react"
-import { api } from "@/convex/_generated/api"
 
 /* ── Word-by-word reveal ────────────────────────────────── */
 function AnimatedHeading() {
@@ -88,6 +84,9 @@ function AnimatedHeading() {
     )
 }
 
+import { useQuery } from "convex/react"
+import { api } from "@/convex/_generated/api"
+
 /* ── Scrolling Project Montage ──────────────────────────── */
 function ProjectMontage() {
     const projects = useQuery(api.projects.listPublished) || []
@@ -106,158 +105,43 @@ function ProjectMontage() {
 
     // Duplicate for seamless loop
     const doubled = [...baseImages, ...baseImages]
-    return null; // The globe is preferred now
-}
 
-/* ── Interactive Globe Montage ──────────────────────────── */
-const World = dynamic(() => import('../ui/globe').then((m) => m.World), {
-    ssr: false,
-})
-
-const globeConfig = {
-    pointSize: 4,
-    globeColor: "#FFFFFF",
-    showAtmosphere: true,
-    atmosphereColor: "#FFFFFF",
-    atmosphereAltitude: 0.1,
-    emissive: "#059669",
-    emissiveIntensity: 0.2, // Increased glow
-    shininess: 0.9,
-    polygonColor: "rgba(15, 23, 42, 0.7)", // slate-900 with opacity
-    ambientLight: "#ffffff",
-    directionalLeftLight: "#ffffff",
-    directionalTopLight: "#ffffff",
-    pointLight: "#ffffff",
-    arcTime: 2500, // Longer time for smooth flow
-    arcLength: 0.35, // Balanced trail
-    rings: 2,
-    maxRings: 4,
-    initialPosition: { lat: 20, lng: 0 },
-    autoRotate: true,
-    autoRotateSpeed: 0.5,
-};
-
-const colors = ["#059669", "#10B981"]; // Emerald accent colors
-
-const globalCities = [
-    { lat: 40.7128, lng: -74.0060 }, // NY
-    { lat: 37.7749, lng: -122.4194 }, // SF
-    { lat: 35.6762, lng: 139.6503 }, // Tokyo
-    { lat: -33.8688, lng: 151.2093 }, // Sydney
-    { lat: 25.2048, lng: 55.2708 }, // Dubai
-    { lat: 1.3521, lng: 103.8198 }, // Singapore
-    { lat: 52.5200, lng: 13.4050 }, // Berlin
-    { lat: 48.8566, lng: 2.3522 }, // Paris
-    { lat: 43.6510, lng: -79.3470 }, // Toronto
-    { lat: -33.9249, lng: 18.4241 }, // Cape Town
-    { lat: 19.0760, lng: 72.8777 }, // Mumbai
-    { lat: -23.5505, lng: -46.6333 }, // Sao Paulo
-    { lat: 39.9042, lng: 116.4074 }, // Beijing
-    { lat: 55.7558, lng: 37.6173 }, // Moscow
-    { lat: -34.6037, lng: -58.3816 }, // Buenos Aires
-    { lat: 6.5244, lng: 3.3792 }, // Lagos
-    { lat: 34.0522, lng: -118.2437 }, // LA
-    { lat: 41.9028, lng: 12.4964 }, // Rome
-    { lat: 28.6139, lng: 77.2090 }, // New Delhi
-    { lat: 1.2921, lng: 36.8219 }, // Nairobi
-    { lat: -36.8485, lng: 174.7633 }, // Auckland
-    { lat: 22.3193, lng: 114.1694 }, // Hong Kong
-    { lat: 51.1657, lng: 10.4515 }, // Germany
-    { lat: 37.5665, lng: 126.9780 } // Seoul
-];
-
-const hubs = [
-    { lat: 51.5072, lng: -0.1276 }, // London
-];
-
-// Generate 10 infinite smooth arcs flying back and forth with distinctly different altitudes
-const sampleArcs = Array.from({ length: 10 }).map((_, i) => {
-    const isToHub = Math.random() > 0.5;
-    const hub = hubs[Math.floor(Math.random() * hubs.length)];
-    const city = globalCities[Math.floor(Math.random() * globalCities.length)];
-    return {
-        order: i + 1,
-        startLat: isToHub ? city.lat : hub.lat,
-        startLng: isToHub ? city.lng : hub.lng,
-        endLat: isToHub ? hub.lat : city.lat,
-        endLng: isToHub ? hub.lng : city.lng,
-        arcAlt: 0.15 + (i * 0.045), // 10 explicitly different altitude distances
-        color: colors[Math.floor(Math.random() * colors.length)],
-    };
-});
-
-function HeroGlobe() {
     return (
-        <div className="relative w-full h-[500px] lg:h-[600px] rounded-lg flex items-center justify-center -mt-8">
-            {/* Ambient Base Glow */}
-            <div className="absolute inset-x-0 bottom-[-10%] sm:bottom-[-20%] h-3/4 bg-accent/20 blur-[100px] z-0 pointer-events-none rounded-full" />
+        <div className="relative h-[500px] lg:h-[600px] w-full overflow-hidden rounded-lg">
+            {/* Fade edges */}
+            <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-bg-primary to-transparent z-10 pointer-events-none" />
+            <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-bg-primary to-transparent z-10 pointer-events-none" />
 
+            {/* Scrolling column */}
             <motion.div
-                className="absolute inset-0 w-full h-full opacity-90 z-0"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 0.9, scale: 1 }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-            >
-                <World data={sampleArcs} globeConfig={globeConfig} />
-            </motion.div>
-
-            {/* Floating Glassmorphic Badges */}
-            <motion.div
-                className="absolute top-[15%] left-[5%] z-20 backdrop-blur-md bg-white/60 border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.05)] text-text-primary px-5 py-3 rounded-2xl hidden md:flex items-center gap-3"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1, y: ["-10px", "10px"] }}
+                className="flex flex-col gap-4"
+                animate={{ y: [0, -(baseImages.length * (280 + 16))] }}
                 transition={{
-                    duration: 0.8,
-                    delay: 1,
                     y: {
-                        duration: 3,
+                        duration: baseImages.length * 4,
                         repeat: Infinity,
-                        repeatType: "reverse",
-                        ease: "easeInOut"
-                    }
+                        ease: 'linear',
+                    },
                 }}
             >
-                <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-accent"></span>
-                </span>
-                <div className="flex flex-col">
-                    <span className="text-xs text-text-muted font-medium uppercase tracking-wider">Locations</span>
-                    <span className="text-sm font-semibold tracking-tight">London, UK</span>
-                </div>
+                {doubled.map((img, i) => (
+                    <div
+                        key={i}
+                        className="relative w-full h-[280px] rounded-lg overflow-hidden shrink-0"
+                    >
+                        <Image
+                            src={img.src}
+                            alt={img.title}
+                            fill
+                            priority={i < 4}
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                        />
+                        <div className="absolute inset-0 bg-bg-primary/10" />
+                    </div>
+                ))}
             </motion.div>
-
-            <motion.div
-                className="absolute bottom-[15%] right-[5%] z-20 backdrop-blur-md bg-white/60 border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.05)] text-text-primary px-5 py-3 rounded-2xl hidden md:flex items-center gap-3"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1, y: ["10px", "-10px"] }}
-                transition={{
-                    duration: 0.8,
-                    delay: 1.3,
-                    y: {
-                        duration: 3.5,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                        ease: "easeInOut",
-                        delay: 0.5
-                    }
-                }}
-            >
-                <div className="flex flex-col items-end text-right">
-                    <span className="text-xs text-text-muted font-medium uppercase tracking-wider">Global Reach</span>
-                    <span className="text-sm font-semibold tracking-tight">25+ Projects Delivered</span>
-                </div>
-                <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-accent">
-                        <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M2.5 9H21.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M2.5 15H21.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                </div>
-            </motion.div>
-
-        </div >
+        </div>
     )
 }
 
@@ -289,7 +173,7 @@ export default function Hero() {
                         animate="show"
                         custom={0.1}
                     >
-                        Web Development Studio — United Kingdom
+                        Web Development Studio — UK & Sri Lanka
                     </motion.p>
 
                     <AnimatedHeading />
@@ -361,7 +245,7 @@ export default function Hero() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 >
-                    <HeroGlobe />
+                    <ProjectMontage />
                 </motion.div>
 
             </div>
