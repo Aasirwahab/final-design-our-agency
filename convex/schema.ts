@@ -59,6 +59,22 @@ export default defineSchema({
         order: v.number(),
     }).index("by_order", ["order"]),
 
+    // Studio: Team Members
+    teamMembers: defineTable({
+        name: v.string(),
+        role: v.string(),
+        image: v.string(),
+        position: v.string(), // CSS positioning, e.g., 'object-top'
+        order: v.number(),
+    }).index("by_order", ["order"]),
+
+    // Studio: "What Drives Us Forward"
+    studioValues: defineTable({
+        title: v.string(),
+        description: v.string(),
+        order: v.number(),
+    }).index("by_order", ["order"]),
+
     // Company Info (singleton pattern - one document)
     companyInfo: defineTable({
         name: v.string(),

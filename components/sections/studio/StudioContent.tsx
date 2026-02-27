@@ -7,6 +7,8 @@ import RevealOnScroll from '../../ui/RevealOnScroll'
 import AnimatedCounter from '../../ui/AnimatedCounter'
 import MagneticButton from '../../ui/MagneticButton'
 import { inter } from '@/lib/fonts'
+import { useQuery } from "convex/react"
+import { api } from "@/convex/_generated/api"
 
 export default function StudioContent() {
     // Scroll progress for the entire page
@@ -22,19 +24,12 @@ export default function StudioContent() {
     const heroImgParallax = useTransform(smoothProgress, [0, 0.5], ["-5%", "5%"])
     const giantTextY = useTransform(smoothProgress, [0, 1], [0, 600])
 
-    const teamMembers = [
-        { id: 1, name: 'Zaidh Zammer', role: 'Founder, Director & Head of Marketing', image: '/Zamir Founder.webp', position: 'object-top' },
-        { id: 2, name: 'Wahab Aasir', role: 'Co-Founder & Full-stack Developer', image: '/cofounder_new.webp', position: 'object-top' },
-        { id: 3, name: 'Hasni Ahmed', role: 'Senior Full-Stack Developer & UI/UX Designer', image: '/HASNI.webp', position: 'object-top' },
-        { id: 4, name: 'RaajGughan', role: 'Software Engineer & UI/UX Designer', image: '/Kuhan.webp', position: 'object-[center_20%]' },
-    ]
+    const dbTeamMembers = useQuery(api.teamMembers.list);
+    const dbStudioValues = useQuery(api.studioValues.list);
 
-    const values = [
-        { title: 'Innovative Solutions', description: 'Leading the industry with cutting-edge solutions that drive business success and transform operations.' },
-        { title: 'Client-Centric Excellence', description: 'Prioritizing client needs through customized services that enhance growth and operational efficiency.' },
-        { title: 'Quality Commitment', description: 'Maintaining unwavering commitment to excellence in every aspect of our work, ensuring outstanding results.' },
-        { title: 'Strategic Empowerment', description: 'Empowering businesses to achieve their full potential through strategic guidance and innovative solutions.' },
-    ]
+    // Fallbacks while loading
+    const teamMembers = dbTeamMembers ?? [];
+    const values = dbStudioValues ?? [];
 
     return (
         <div className="relative w-full bg-bg-primary text-text-primary" ref={containerRef}>
@@ -346,7 +341,7 @@ export default function StudioContent() {
                         const offsetClass = idx % 2 === 1 ? 'lg:mt-24' : '';
 
                         return (
-                            <RevealOnScroll key={member.id} delay={0.1 * (idx % 2)}>
+                            <RevealOnScroll key={member._id} delay={0.1 * (idx % 2)}>
                                 <div className={`flex flex-col ${offsetClass}`}>
                                     <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-6">
                                         <Image

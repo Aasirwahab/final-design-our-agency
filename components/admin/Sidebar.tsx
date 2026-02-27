@@ -5,22 +5,29 @@ import { usePathname } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
 import {
     LayoutDashboard,
-    FolderKanban,
-    Wrench,
-    MessageSquareQuote,
     HelpCircle,
     Settings,
+    LogOut,
+    Menu,
+    X,
     Users,
     ChevronLeft,
     ChevronRight,
+    BookOpen,
+    FolderGit2,
+    Briefcase,
+    Building2,
+    MessageSquare,
+    Camera
 } from "lucide-react";
 import { useState } from "react";
 
 const navItems = [
-    { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
-    { label: "Projects", href: "/admin/projects", icon: FolderKanban },
-    { label: "Services", href: "/admin/services", icon: Wrench },
-    { label: "Testimonials", href: "/admin/testimonials", icon: MessageSquareQuote },
+    { label: "Overview", href: "/admin", icon: LayoutDashboard, exact: true },
+    { label: "Projects", href: "/admin/projects", icon: FolderGit2 },
+    { label: "Services", href: "/admin/services", icon: Briefcase },
+    { label: "Testimonials", href: "/admin/testimonials", icon: MessageSquare },
+    { label: "Studio", href: "/admin/studio", icon: Camera },
     { label: "FAQs", href: "/admin/faqs", icon: HelpCircle },
     { label: "Settings", href: "/admin/settings", icon: Settings },
     { label: "Users", href: "/admin/users", icon: Users },
@@ -70,16 +77,16 @@ export default function AdminSidebar() {
                             key={item.href}
                             href={item.href}
                             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group ${active
-                                    ? "bg-white/[0.08] text-white"
-                                    : "text-white/40 hover:text-white/70 hover:bg-white/[0.04]"
+                                ? "bg-white/[0.08] text-white"
+                                : "text-white/40 hover:text-white/70 hover:bg-white/[0.04]"
                                 }`}
                             title={collapsed ? item.label : undefined}
                         >
                             <Icon
                                 size={18}
                                 className={`shrink-0 ${active
-                                        ? "text-white"
-                                        : "text-white/30 group-hover:text-white/60"
+                                    ? "text-white"
+                                    : "text-white/30 group-hover:text-white/60"
                                     }`}
                             />
                             {!collapsed && <span>{item.label}</span>}
