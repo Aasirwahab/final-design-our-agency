@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@source "../components";
+@source "../app";
+@source "../lib";
 
 @theme {
   --color-bg-primary: #FFFFFF;

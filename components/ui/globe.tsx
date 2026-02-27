@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { Color, Scene, Fog, PerspectiveCamera, Vector3 } from "three";
 import ThreeGlobe from "three-globe";
 import { useThree, Canvas, extend } from "@react-three/fiber";
@@ -77,8 +77,8 @@ export function Globe({ globeConfig, data }: WorldProps) {
     emissive: "#000000",
     emissiveIntensity: 0.1,
     shininess: 0.9,
-    arcTime: 2000,
-    arcLength: 0.9,
+    arcTime: 1500,
+    arcLength: 2.0,
     rings: 1,
     maxRings: 3,
     ...globeConfig,
@@ -115,15 +115,11 @@ export function Globe({ globeConfig, data }: WorldProps) {
     globeConfig.shininess,
   ]);
 
-  // Build data when globe is initialized or when data changes
-  useEffect(() => {
-    if (!globeRef.current || !isInitialized || !data) return;
-
-    const arcs = data;
+  const filteredPoints = useMemo(() => {
+    if (!data) return [];
     let points = [];
-    for (let i = 0; i < arcs.length; i++) {
-      const arc = arcs[i];
-      const rgb = hexToRgb(arc.color) as { r: number; g: number; b: number };
+    for (let i = 0; i < data.length; i++) {
+      const arc = data[i];
       points.push({
         size: defaultProps.pointSize,
         order: arc.order,
@@ -141,7 +137,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
     }
 
     // remove duplicates for same lat and lng
-    const filteredPoints = points.filter(
+    return points.filter(
       (v, i, a) =>
         a.findIndex((v2) =>
           ["lat", "lng"].every(
@@ -149,38 +145,10 @@ export function Globe({ globeConfig, data }: WorldProps) {
           ),
         ) === i,
     );
+  }, [data, defaultProps.pointSize]);
 
-    globeRef.current
-      .hexPolygonsData(countries.features)
-      .hexPolygonResolution(4)
-      .hexPolygonMargin(0.5)
-      .showAtmosphere(defaultProps.showAtmosphere)
-      .atmosphereColor(defaultProps.atmosphereColor)
-      .atmosphereAltitude(defaultProps.atmosphereAltitude)
-      .hexPolygonColor(() => defaultProps.polygonColor);
-
-    globeRef.current
-      .arcsData(data)
-      .arcStartLat((d) => (d as { startLat: number }).startLat * 1)
-      .arcStartLng((d) => (d as { startLng: number }).startLng * 1)
-      .arcEndLat((d) => (d as { endLat: number }).endLat * 1)
-      .arcEndLng((d) => (d as { endLng: number }).endLng * 1)
-      .arcColor((e: any) => (e as { color: string }).color)
-      .arcAltitude((e) => (e as { arcAlt: number }).arcAlt * 1)
-      .arcStroke(() => 1.0)
-      .arcDashLength(defaultProps.arcLength)
-      .arcDashInitialGap((e) => (e as { order: number }).order * 0.1)
-      .arcDashGap(0.1)
-      .arcDashAnimateTime(() => defaultProps.arcTime);
-
-    globeRef.current
-      .pointsData(filteredPoints)
-      .pointColor((e) => (e as { color: string }).color)
-      .pointsMerge(true)
-      .pointAltitude(0.0)
-      .pointRadius(2);
-
-    // Add CSS 2D Labels
+  const uniqueLabels = useMemo(() => {
+    if (!data) return [];
     const labels = data.map((d) => {
       let text = "";
       if (d.order === 1 && d.endLat > 40) text = "New York";
@@ -203,11 +171,48 @@ export function Globe({ globeConfig, data }: WorldProps) {
         color: d.color
       }
     });
+
     // Add London Hub Label
     labels.push({ lat: 51.5074, lng: -0.1278, text: "LONDON", color: "#10B981" });
 
-    // Deduplicate labels
-    const uniqueLabels = labels.filter((v, i, a) => a.findIndex(t => (t.lat === v.lat && t.lng === v.lng)) === i);
+    return labels.filter((v, i, a) => a.findIndex(t => (t.lat === v.lat && t.lng === v.lng)) === i);
+  }, [data]);
+
+  // Build data when globe is initialized or when data changes
+  useEffect(() => {
+    if (!globeRef.current || !isInitialized || !data) return;
+
+    globeRef.current
+      .hexPolygonsData(countries.features)
+      .hexPolygonResolution(4)
+      .hexPolygonMargin(0.5)
+      .showAtmosphere(defaultProps.showAtmosphere)
+      .atmosphereColor(defaultProps.atmosphereColor)
+      .atmosphereAltitude(defaultProps.atmosphereAltitude)
+      .hexPolygonColor(() => defaultProps.polygonColor);
+
+    globeRef.current
+      .arcsData(data)
+      .arcStartLat((d) => (d as { startLat: number }).startLat * 1)
+      .arcStartLng((d) => (d as { startLng: number }).startLng * 1)
+      .arcEndLat((d) => (d as { endLat: number }).endLat * 1)
+      .arcEndLng((d) => (d as { endLng: number }).endLng * 1)
+      .arcColor((e: any) => (e as { color: string }).color)
+      .arcAltitude((e) => (e as { arcAlt: number }).arcAlt * 1)
+      .arcStroke(() => 0.5)
+      .arcDashLength(defaultProps.arcLength * 4)
+      .arcDashInitialGap((e) => (e as { order: number }).order * 0.1)
+      .arcDashGap(2)
+      .arcDashAnimateTime(() => 600); // Super fast animation
+
+    globeRef.current
+      .pointsData(filteredPoints)
+      .pointColor((e) => (e as { color: string }).color)
+      .pointsMerge(true)
+      .pointAltitude(0.0)
+      .pointRadius(2);
+
+    // CSS 2D Labels logic is handled by useMemo above
 
     globeRef.current
       .labelsData(uniqueLabels)
