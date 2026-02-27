@@ -184,7 +184,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
     globeRef.current
       .hexPolygonsData(countries.features)
-      .hexPolygonResolution(4)
+      .hexPolygonResolution(3)
       .hexPolygonMargin(0.5)
       .showAtmosphere(defaultProps.showAtmosphere)
       .atmosphereColor(defaultProps.atmosphereColor)
@@ -252,29 +252,40 @@ export function Globe({ globeConfig, data }: WorldProps) {
   useEffect(() => {
     if (!globeRef.current || !isInitialized || !data) return;
 
-    const interval = setInterval(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    const performRingAnimation = () => {
       if (!globeRef.current) return;
 
-      // More rings active at once for a busier, live dashboard feel
-      const newNumbersOfRings = genRandomNumbers(
-        0,
-        data.length,
-        Math.floor((data.length * 4) / 5),
-      );
+      // Ensure we don't calculate on 0 data
+      if (data.length > 0) {
+        // More rings active at once for a busier, live dashboard feel
+        // Calculate a sensible number of rings, capped for performance
+        const activeRingsCount = Math.min(Math.floor((data.length * 4) / 5), 15);
+        const newNumbersOfRings = genRandomNumbers(
+          0,
+          data.length,
+          activeRingsCount
+        );
 
-      const ringsData = data
-        .filter((d, i) => newNumbersOfRings.includes(i))
-        .map((d) => ({
-          lat: d.startLat,
-          lng: d.startLng,
-          color: d.color,
-        }));
+        const ringsData = data
+          .filter((d, i) => newNumbersOfRings.includes(i))
+          .map((d) => ({
+            lat: d.startLat,
+            lng: d.startLng,
+            color: d.color,
+          }));
 
-      globeRef.current.ringsData(ringsData);
-    }, 2000);
+        globeRef.current.ringsData(ringsData);
+      }
+
+      timeoutId = setTimeout(performRingAnimation, 2500); // slightly slower to prevent lag spikes
+    };
+
+    performRingAnimation();
 
     return () => {
-      clearInterval(interval);
+      clearTimeout(timeoutId);
     };
   }, [isInitialized, data]);
 

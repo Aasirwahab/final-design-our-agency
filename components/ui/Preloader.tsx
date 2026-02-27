@@ -16,7 +16,7 @@ export default function Preloader() {
             setIsLoading(false)
             document.body.style.overflow = 'unset'
             window.scrollTo(0, 0)
-        }, 2000)
+        }, 800)
 
         return () => {
             clearTimeout(timer)
@@ -29,10 +29,10 @@ export default function Preloader() {
             {isLoading && (
                 <motion.div
                     key="preloader"
-                    // Slide up animation for the entire overlay when exiting
-                    initial={{ y: 0 }}
-                    exit={{ y: "-100%" }}
-                    transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
+                    // Fade out animation for the entire overlay when exiting
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
                     className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-bg-primary"
                 >
                     <div className="overflow-hidden flex flex-col items-center">
@@ -48,6 +48,7 @@ export default function Preloader() {
                                 alt="Webvoxel Studio"
                                 width={200}
                                 height={50}
+                                style={{ width: 'auto', height: 'auto' }}
                                 className="object-contain"
                                 priority
                             />

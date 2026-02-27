@@ -57,8 +57,9 @@ export default function Navbar() {
                         <Image
                             src="/webvoxel-logoblack.png"
                             alt="Webvoxel Logo"
-                            width={220}
-                            height={55}
+                            width={160}
+                            height={40}
+                            style={{ width: 'auto', height: 'auto', maxHeight: '40px' }}
                             className="object-contain transition-all duration-500 hover:opacity-80"
                             priority
                         />

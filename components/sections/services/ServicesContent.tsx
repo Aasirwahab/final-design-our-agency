@@ -356,33 +356,33 @@ function InnerServicesContent({ services }: { services: any }) {
             </section >
 
             {/* CALL TO ACTION */}
-            < section className="relative w-full py-32 md:py-48 bg-accent text-bg-primary overflow-hidden" >
-                <div className="absolute top-0 right-0 w-full h-px bg-bg-primary/20" />
+            < section className="relative w-full py-32 md:py-48 bg-bg-dark text-white overflow-hidden" >
+                <div className="absolute top-0 right-0 w-full h-px bg-white/10" />
 
                 {/* Background decorative typography */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none opacity-10">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none opacity-[0.03]">
                     <h2 className="font-display text-[20vw] leading-none whitespace-nowrap">START NOW</h2>
                 </div>
 
                 <div className="max-w-[1400px] mx-auto w-full px-4 md:px-6 lg:px-8 text-center relative z-10 flex flex-col items-center">
                     <RevealOnScroll>
-                        <h2 className="font-display text-5xl md:text-7xl lg:text-[7rem] leading-none mb-8 tracking-tight">
+                        <h2 className="font-display text-5xl md:text-7xl lg:text-[7rem] leading-none mb-8 tracking-tight text-white">
                             Ready to Build <br />
-                            <span className="italic font-light">Your Legacy?</span>
+                            <span className="italic font-light text-accent">Your Legacy?</span>
                         </h2>
                     </RevealOnScroll>
 
                     <RevealOnScroll delay={0.2}>
-                        <p className={`text-xl md:text-2xl text-bg-primary/80 max-w-2xl mx-auto mb-12 ${inter.variable} font-sans`}>
+                        <p className={`text-xl md:text-2xl text-white/70 max-w-2xl mx-auto mb-12 ${inter.variable} font-sans`}>
                             Let's architect an elite digital experience that places your brand at the absolute pinnacle of your industry.
                         </p>
                     </RevealOnScroll>
 
                     <RevealOnScroll delay={0.4}>
                         <Link href="/contact">
-                            <button className="group relative inline-flex items-center justify-center px-12 py-6 rounded-full bg-bg-primary text-text-primary overflow-hidden transition-transform duration-500 hover:scale-105 active:scale-95 shadow-2xl hover:shadow-black/20">
-                                <div className="absolute inset-0 bg-text-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                                <span className={`relative z-10 flex items-center gap-3 text-lg font-medium group-hover:text-bg-primary transition-colors duration-500 ${inter.variable} font-sans`}>
+                            <button className="group relative inline-flex items-center justify-center px-12 py-6 rounded-full bg-white text-bg-dark overflow-hidden transition-transform duration-500 hover:scale-105 active:scale-95 shadow-2xl hover:shadow-black/20">
+                                <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                                <span className={`relative z-10 flex items-center gap-3 text-lg font-medium group-hover:text-white transition-colors duration-500 ${inter.variable} font-sans`}>
                                     Initialize Project
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </span>
