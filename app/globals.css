@@ -15,8 +15,8 @@
   --color-border: #E2E8F0;
   --color-border-light: #CBD5E1;
 
-  --font-family-sans: var(--font-inter, ui-sans-serif, system-ui, sans-serif);
-  --font-family-display: var(--font-display, ui-serif, Georgia, serif);
+  --font-sans: var(--font-inter, ui-sans-serif, system-ui, sans-serif);
+  --font-display: var(--font-display, ui-serif, Georgia, serif);
 }
 
 @layer base {

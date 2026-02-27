@@ -1,7 +1,7 @@
 export const companyInfo = {
     name: "Webvoxel Studio",
     tagline: "Creating exceptional digital experiences that transform businesses and inspire innovation.",
-    locations: ["UK (Head Office)", "Sri Lanka (Technology Center)"],
+    locations: ["UK (Head Office)"],
     email: "info@webvoxelstudio.uk",
     phone: "+44 7443 159478",
     linkedin: "https://www.linkedin.com/company/webvoxelstudio/",

@@ -1,0 +1,22 @@
+{
+  "name": "globe",
+  "type": "registry:ui",
+  "dependencies": [
+    "three",
+    "three-globe",
+    "@react-three/fiber@alpha",
+    "@react-three/drei"
+  ],
+  "devDependencies": [
+    "@types/three"
+  ],
+  "files": [
+    {
+      "path": "components/ui/globe.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/globe.tsx"
+    }
+  ],
+  "author": "Manu Arora <hi@manuarora.in>",
+  "title": "Globe"
+}

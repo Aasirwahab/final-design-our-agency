@@ -96,7 +96,7 @@ export default function WorksPage() {
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-3 shrink-0 sm:mt-1">
-                                        <span className="text-[10px] md:text-xs text-text-muted tracking-wider uppercase bg-accent/10 text-accent px-3 py-1 rounded-full">{project.category}</span>
+                                        <span className="text-[10px] md:text-xs tracking-wider uppercase bg-accent/10 text-accent px-3 py-1 rounded-full">{project.category}</span>
                                         <span className="text-xs md:text-sm text-text-muted border border-border px-3 py-1 rounded-full">
                                             {project.year}
                                         </span>

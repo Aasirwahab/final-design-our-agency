@@ -26,7 +26,6 @@ export default function StudioContent() {
 
     const dbTeamMembers = useQuery(api.teamMembers.list);
     const dbStudioValues = useQuery(api.studioValues.list);
-
     // Fallbacks while loading
     const teamMembers = dbTeamMembers ?? [];
     const values = dbStudioValues ?? [];
@@ -87,7 +86,7 @@ export default function StudioContent() {
                             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
                             className={`text-lg md:text-xl lg:text-2xl text-text-secondary max-w-2xl mx-auto leading-relaxed ${inter.variable} font-sans font-light`}
                         >
-                            What began as a vision to blend technology with design is now a premier digital agency in the UK & Sri Lanka.
+                            What began as a vision to blend technology with design is now a premier digital agency based in the UK.
                         </motion.p>
                     </div>
                 </div>
@@ -100,7 +99,7 @@ export default function StudioContent() {
                         initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        className="relative w-full aspect-[4/3] md:aspect-[21/9] rounded-2xl md:rounded-[2rem] overflow-hidden bg-bg-dark shadow-2xl"
+                        className="relative w-full aspect-4/3 md:aspect-21/9 overflow-hidden rounded-3xl md:rounded-4xl group bg-bg-dark shadow-2xl"
                     >
                         <motion.div
                             className="absolute inset-0 w-full h-full"
@@ -151,7 +150,7 @@ export default function StudioContent() {
                         </RevealOnScroll>
 
                         <RevealOnScroll>
-                            <div className="w-full aspect-[4/3] relative rounded-2xl overflow-hidden shadow-2xl">
+                            <div className="w-full aspect-4/3 relative rounded-2xl overflow-hidden shadow-2xl">
                                 <Image src="/new team image.png" alt="Story" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
                                 <div className="absolute inset-0 bg-bg-dark/10 hover:bg-transparent transition-colors duration-700" />
                             </div>
@@ -304,7 +303,7 @@ export default function StudioContent() {
                                         <span className="font-display text-5xl text-border group-hover:text-border transition-colors duration-500 w-16">
                                             0{idx + 1}
                                         </span>
-                                        <h3 className="font-display text-5xl text-text-primary group-hover:text-text-primary transition-colors duration-500 group-hover:translate-x-3 transition-transform ease-out">
+                                        <h3 className="font-display text-5xl text-text-primary group-hover:translate-x-3 transition-all duration-500 ease-out">
                                             {val.title}
                                         </h3>
                                     </div>
@@ -316,7 +315,7 @@ export default function StudioContent() {
                                     </div>
                                 </div>
                                 {/* Hover background wipe */}
-                                <div className="absolute inset-0 bg-accent/5 scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
+                                <div className="absolute inset-0 bg-accent/5 scale-x-0 origin-left group-hover:scale-x-105 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
                             </div>
                         </RevealOnScroll>
                     ))}
@@ -343,7 +342,7 @@ export default function StudioContent() {
                         return (
                             <RevealOnScroll key={member._id} delay={0.1 * (idx % 2)}>
                                 <div className={`flex flex-col ${offsetClass}`}>
-                                    <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden mb-6">
+                                    <div className="relative aspect-3/4 overflow-hidden rounded-2xl mb-6">
                                         <Image
                                             src={member.image}
                                             alt={member.name}
