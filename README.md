@@ -9,7 +9,7 @@ WebVoxel Studio is a premium, high-performance agency website built with modern 
 - **Robust Authentication**: Secure user authentication and management seamlessly integrated with Clerk.
 - **Real-time Database**: High-performance data synchronization and backend operations with Convex.
 - **Modern Styling**: Utility-first CSS with Tailwind CSS v4 for pixel-perfect, responsive designs.
-- **Type-Safe**: Built entirely with TypeScript for reliable and maintainable code.
+
 
 ## 🚀 Tech Stack
 
